@@ -1,9 +1,11 @@
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
+import 'package:college_bot/widgets/titledcardbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
 
@@ -17,7 +19,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+      //extendBody: true,
+      bottomNavigationBar: /*AnimatedBottomNavigationBar(
+        
+        icons: [Icons.home,
+        Icons.account_circle,],
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        //backgroundColor: Colors.blue,
+        elevation: 0,
+        inactiveColor: Colors.black,
+        activeColor: Color(0xff0e61db),
+        iconSize: 35,
+        notchSmoothness: NotchSmoothness.verySmoothEdge,
+        gapWidth: 20,
+        blurEffect: true,
+        borderColor: Colors.grey.withOpacity(0.2),
+        backgroundGradient: kbuttonGradient,
+        gapLocation: GapLocation.center,
+        activeIndex: navigationIndex,
+        onTap: (value) {
+            navigationIndex = value;
+            setState(() {
+              
+            });
+        }
+      ),*/
+      
+      BottomNavigationBar(
+        
           selectedIconTheme: IconThemeData(
             size: 40
           ),
@@ -35,9 +65,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           backgroundColor: Colors.transparent,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.textsms), label: 'Chatbot'),
             BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profile')
           ]),
+
+
+
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -73,9 +105,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
             ),
+           Row(
+             children: [
+               TitledCardButton(title: 'Chat with \nCollegeBot', icon: Icons.chat_bubble),
+               Padding(
+                 padding: const EdgeInsets.only(left: 35.0),
+                 child: TitledCardButton(title: 'Talk with \nCollegeBot', icon: Icons.mic),
+               ),
+             ],
+           ),
+
             Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text('Services',style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: kblueTextColor),),
+              padding: const EdgeInsets.only(bottom: 8.0,top: 12),
+              child: Text('Other Services',style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: kblueTextColor),),
             ),
             Container(
               height: 100,

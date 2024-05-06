@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:college_bot/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,8 +19,9 @@ class CustomStack extends StatelessWidget {
             width: 380,
             height: 300,
             decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage('images/gradient.jpg'),fit: BoxFit.fill),
-              color: Colors.grey.withOpacity(0.2),
+              //image: DecorationImage(image: AssetImage('images/chatbot.jpg'),fit: BoxFit.fill),
+              gradient: kbuttonGradient,
+              //color: Colors.grey.withOpacity(0.2),
                 //gradient: LinearGradient(colors: [Colors.lightBlue.shade700,Colors.lightBlue.shade400],begin: Alignment.bottomLeft,end: Alignment.topRight),
                 borderRadius: BorderRadius.circular(15)),
             child: ClipRRect(

@@ -5,8 +5,10 @@ class IconButtonCard extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color? backgroundColor;
+  final double? width;
+  final double? height;
 
-  IconButtonCard({required this.text,required this.icon, this.backgroundColor});
+  IconButtonCard({required this.text,required this.icon, this.backgroundColor,this.height,this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,8 @@ class IconButtonCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(right: 20.0),
         child: Container(
-          width: 100,
-          height: 100,
+          width: width ?? 100,
+          height: height ?? 100,
           decoration: BoxDecoration(
               gradient: kbuttonGradient,
               color: backgroundColor ?? Colors.grey.shade900,
