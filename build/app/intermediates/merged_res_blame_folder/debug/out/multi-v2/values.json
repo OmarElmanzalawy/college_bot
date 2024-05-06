@@ -4,7 +4,7 @@
             "outputFile": "com.example.college_bot.app-mergeDebugResources-9:/values/values.xml",
             "map": [
                 {
-                    "source": "D:\\Programing\\Flutter\\college_bot\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "D:\\Programming\\Flutter\\college_bot_git\\college_bot\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
