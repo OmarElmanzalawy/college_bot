@@ -8,6 +8,9 @@ Color klightGreen = Color(0xffe7ffd6);
 Color klightPurple = Color(0xfff4f0ff);
 
 
+Color kblueHeaderColor = Color(0xff4b68ff);
+
+
 // Color ksubtitleColor;
 
 //Color(0xff282828)

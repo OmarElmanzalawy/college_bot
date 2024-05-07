@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +17,31 @@ class SignUpScreen extends StatelessWidget {
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top:140.0,bottom: 30),
-              child: Text('Get Started',
-              style: TextStyle(
-                color: kblueTextColor,
-                fontSize: 30
-              ),
+            Stack(children: [
+            ClipPath(
+              clipper: CustomCurvedEdge(),
+              child: Container(
+                height: 300,
+                padding: EdgeInsets.all(0),
+                color: kblueHeaderColor,
               ),
             ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 120.0),
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(color: Colors.white, fontSize: 35),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 255,top: 100,child: Transform.rotate
+            (angle: pi/12,
+              child: Image(image: AssetImage('images/robot.png'),height: 250,),
+            )
+            ),
+          ]),
             TitledTextField(
               title: 'Email'
             , hint: 'Enter your student email',
@@ -44,7 +63,7 @@ class SignUpScreen extends StatelessWidget {
             suffixIcon: Icon(Icons.fingerprint),
             ),
             Padding(
-              padding: const EdgeInsets.only(top:65.0),
+              padding: const EdgeInsets.only(top:50.0),
               child: ActionButton(text: 'SignUp',backgroundColor: Colors.blue,textColor: Colors.white,
               onpressed: ()=> Navigator.pushNamed(context, '/dashboard'),
               ),

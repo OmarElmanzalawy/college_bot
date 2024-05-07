@@ -15,7 +15,7 @@ class TitledTextField extends StatelessWidget {
         Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 12.0,top: 30,left: 12),
+                padding: const EdgeInsets.only(bottom: 12.0,top: 20,left: 12),
                 child: Text(title,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
               )
               ),

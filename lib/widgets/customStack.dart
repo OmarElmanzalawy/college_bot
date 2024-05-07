@@ -4,7 +4,7 @@ import 'package:college_bot/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:typewritertext/typewritertext.dart';
+//import 'package:typewritertext/typewritertext.dart';
 
 class CustomStack extends StatefulWidget {
   final String question;
@@ -30,11 +30,6 @@ class _CustomStackState extends State<CustomStack> with SingleTickerProviderStat
     _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
   
   @override
   Widget build(BuildContext context) {
@@ -79,9 +74,9 @@ class _CustomStackState extends State<CustomStack> with SingleTickerProviderStat
                                AnimatedOpacity(
                                 opacity: answerOpacity,
                                 duration: Duration(milliseconds: 50),
-                                 child: TypeWriter.text(
+                                //TODO: IMPLEMENT TYPEWRITER TEXT 
+                                 child: Text(
                                   widget.answer,
-                                  duration: Duration(milliseconds: 150),
                                   ),
                                ),
                             ],
