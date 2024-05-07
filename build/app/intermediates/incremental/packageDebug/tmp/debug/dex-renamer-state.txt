@@ -1,4 +1,4 @@
-#Mon May 06 17:04:43 EEST 2024
+#Mon May 06 23:55:12 EEST 2024
 base.0=D\:\\Programming\\Flutter\\college_bot_git\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

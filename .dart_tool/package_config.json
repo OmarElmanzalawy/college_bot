@@ -158,6 +158,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "typewritertext",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/typewritertext-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -176,7 +182,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-06T15:42:17.928279Z",
+  "generated": "2024-05-06T22:52:22.894943Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

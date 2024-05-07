@@ -7,8 +7,9 @@ class IconButtonCard extends StatelessWidget {
   final Color? backgroundColor;
   final double? width;
   final double? height;
+  final Color? iconColor;
 
-  IconButtonCard({required this.text,required this.icon, this.backgroundColor,this.height,this.width});
+  IconButtonCard({required this.text,required this.icon, this.backgroundColor,this.height,this.width,this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +21,20 @@ class IconButtonCard extends StatelessWidget {
           width: width ?? 100,
           height: height ?? 100,
           decoration: BoxDecoration(
-              gradient: kbuttonGradient,
-              color: backgroundColor ?? Colors.grey.shade900,
+              color: backgroundColor ?? Colors.grey.shade100,
               borderRadius: BorderRadius.circular(15)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: iconColor ?? kblueTextColor,
               ),
               Text(
                 text,
-                style: TextStyle(fontSize: 10,color: Colors.white),
+                style: TextStyle(fontSize: 10,color:  Colors.blueGrey,fontWeight: FontWeight.w500),
               )
             ],
           ),

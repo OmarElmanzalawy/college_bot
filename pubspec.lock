@@ -200,6 +200,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  typewritertext:
+    dependency: "direct main"
+    description:
+      name: typewritertext
+      sha256: "918686ee3fe4717c65d76200bc2ee1531efd49e46cba22b02f7ca6f35084912f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
   vector_math:
     dependency: transitive
     description:
@@ -218,3 +226,4 @@ packages:
     version: "13.0.0"
 sdks:
   dart: ">=3.3.3 <4.0.0"
+  flutter: ">=1.17.0"

@@ -1,14 +1,41 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:college_bot/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:typewritertext/typewritertext.dart';
 
-class CustomStack extends StatelessWidget {
+class CustomStack extends StatefulWidget {
   final String question;
+  final String answer;
 
-  CustomStack({required this.question});
 
+  CustomStack({required this.question,required this.answer});
+
+  @override
+  State<CustomStack> createState() => _CustomStackState();
+}
+
+class _CustomStackState extends State<CustomStack> with SingleTickerProviderStateMixin {
+  double answerOpacity = 0;
+  late AnimationController _controller;
+
+  //TODO FINISH SHOWANSWER FUNCTIONALITY
+
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,12 +68,38 @@ class CustomStack extends StatelessWidget {
                             color: Colors.white),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0, top: 12),
-                          child: Text(question),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child: Text(widget.question,style: TextStyle(
+                                ),),
+                              ),
+                              Divider(thickness: 3,indent: 35,endIndent: 35,),
+                               AnimatedOpacity(
+                                opacity: answerOpacity,
+                                duration: Duration(milliseconds: 50),
+                                 child: TypeWriter.text(
+                                  widget.answer,
+                                  duration: Duration(milliseconds: 150),
+                                  ),
+                               ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
+
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if(answerOpacity==0){
+                            answerOpacity=1;
+
+                          }
+                        });
+                        
+                      },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.white),
                           foregroundColor: MaterialStateProperty.all(Colors.white)),

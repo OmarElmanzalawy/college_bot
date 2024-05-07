@@ -15,7 +15,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      initialRoute: '/dashboard',
+      initialRoute: '/splash',
 
       routes: {
         '/splash':(context) => SplashScreen(),
@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
         '/dashboard':(context) => DashboardScreen(),
       },
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Colors.lightBlue.shade50,
+        scaffoldBackgroundColor: Colors.grey.shade100,
 
       ),
     );
