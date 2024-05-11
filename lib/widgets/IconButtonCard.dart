@@ -8,18 +8,26 @@ class IconButtonCard extends StatelessWidget {
   final double? width;
   final double? height;
   final Color? iconColor;
+  final VoidCallback? onpressed;
 
-  IconButtonCard({required this.text,required this.icon, this.backgroundColor,this.height,this.width,this.iconColor});
+  IconButtonCard(
+      {required this.text,
+      required this.icon,
+      this.backgroundColor,
+      this.height,
+      this.width,
+      this.iconColor,
+      this.onpressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onpressed ?? () {},
       child: Padding(
         padding: const EdgeInsets.only(right: 20.0),
         child: Container(
-          width: width ?? 100,
-          height: height ?? 100,
+          width: width ?? 120,
+          height: height ?? 120,
           decoration: BoxDecoration(
               color: backgroundColor ?? Colors.grey.shade100,
               borderRadius: BorderRadius.circular(15)),
@@ -34,8 +42,11 @@ class IconButtonCard extends StatelessWidget {
               ),
               Text(
                 text,
-                style: TextStyle(fontSize: 10,color:  Colors.blueGrey,fontWeight: FontWeight.w500),
-              )
+                style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.w500),
+              ),
             ],
           ),
         ),

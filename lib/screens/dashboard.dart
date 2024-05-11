@@ -1,4 +1,5 @@
 import 'package:college_bot/constants.dart';
+import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
 import 'package:college_bot/widgets/historyCard.dart';
@@ -6,14 +7,11 @@ import 'package:college_bot/widgets/titledcardbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 class DashboardScreen extends StatefulWidget {
-
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
-  
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -23,8 +21,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: /*AnimatedBottomNavigationBar(
+      extendBodyBehindAppBar: true,
+      //extendBody: true,
+      /* bottomNavigationBar: /*AnimatedBottomNavigationBar(
         
         icons: [Icons.home,
         Icons.account_circle,],
@@ -49,133 +48,199 @@ class _DashboardScreenState extends State<DashboardScreen> {
             });
         }
       ),*/
-      
-      ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(32),topRight: Radius.circular(32)),
+
+          ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32), topRight: Radius.circular(32)),
         //borderRadius: BorderRadius.circular(30),
         child: BottomNavigationBar(
-          
-            selectedIconTheme: IconThemeData(
-              size: 40
-            ),
-            unselectedIconTheme: IconThemeData(
-              size: 25),
+            selectedIconTheme: IconThemeData(size: 40),
+            unselectedIconTheme: IconThemeData(size: 25),
             currentIndex: navigationIndex,
             onTap: (value) {
               navigationIndex = value;
-              setState(() {
-                
-              });
+              setState(() {});
             },
             selectedItemColor: Colors.blue,
             elevation: 0,
             backgroundColor: Colors.white,
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profile')
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle), label: 'Profile')
             ]),
-      ),
-
-
-
-      appBar: AppBar(
+      ),*/
+      /*appBar: AppBar(
+        bottomOpacity: 0,
+        shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         elevation: 0,
         //forceMaterialTransparency: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 35.0, left: 14),
+      ),*/
+      body: SafeArea(
         child: ListView(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Welcome, Omar!',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: kblueTextColor),
+            Stack(children: [
+              ClipPath(
+                clipper: CustomCurvedEdge(),
+                child: Container(
+                  height: 150,
+                  padding: EdgeInsets.all(0),
+                  color: kblueHeaderColor,
                 ),
               ),
-            ),
-            Container(
-              height: 350,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0.0),
+                  child: Text(
+                    'Dashboard',
+                    style: TextStyle(color: Colors.white, fontSize: 35),
+                  ),
+                ),
+              ),
+            ]),
+            Padding(
+              padding: const EdgeInsets.only(left: 14.0, top: 45, bottom: 45),
+              child: Row(
                 children: [
-                  CustomStack(
-                      question:
-                          'What is the difference between Software Engineering and Information Systems?',
-                          answer: 'adwadawd',),
-                  CustomStack(
-                      question:
-                          'What is the northhampton dual degree program?',
-                          answer: 'adwadawd',),
-                  CustomStack(
-                      question: 'What is GPA and how is it calculated?',
-                      answer: 'adwadawd',),
+                  TitledCardButton(
+                    title: 'Chat with \nCollegeBot',
+                    icon: Icons.chat_bubble,
+                    onpressed: () {
+                      Navigator.pushNamed(context, '/chat');
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 35.0),
+                    child: TitledCardButton(
+                      title: 'Talk with \nCollegeBot',
+                      icon: Icons.mic,
+                      onpressed: () {
+                        Navigator.pushNamed(context, '/voice');
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-           Row(
-             children: [
-               TitledCardButton(title: 'Chat with \nCollegeBot', icon: Icons.chat_bubble),
-               Padding(
-                 padding: const EdgeInsets.only(left: 35.0),
-                 child: TitledCardButton(title: 'Talk with \nCollegeBot', icon: Icons.mic),
-               ),
-             ],
-           ),
-
             Padding(
-              padding: const EdgeInsets.only(bottom: 8.0,top: 12),
-              child: Text('Other Services',style: kdashSubCategoryStyle,),
+              padding: const EdgeInsets.only(
+                left: 14.0,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: Text(
+                    'FAQ',
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: kblueTextColor),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 14.0),
+              child: Container(
+                height: 350,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    CustomStack(
+                      question:
+                          'What is the difference between Software Engineering and Information Systems?',
+                      answer:
+                          'adwadawdapwofjapwojfapowjfpaowjfpoawjfpoajwpofjapwojfpaowjfpoawj',
+                    ),
+                    CustomStack(
+                      question: 'What is the northhampton dual degree program?',
+                      answer: 'adwadawd',
+                    ),
+                    CustomStack(
+                      question: 'What is GPA and how is it calculated?',
+                      answer: 'adwadawd',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15.0, top: 12),
+              child: Text(
+                'Other Services',
+                style: kdashSubCategoryStyle,
+              ),
             ),
             Container(
               height: 100,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  IconButtonCard(text: 'Reset Password', icon: Icons.key,backgroundColor: Colors.deepOrange.shade50,iconColor: Colors.deepOrange.shade300,),
-                  IconButtonCard(text: 'Course Registration', icon: Icons.event_note,backgroundColor: klightPurple,iconColor: Colors.deepPurple.shade400,),
-                  IconButtonCard(text: 'Academic Advisor', icon: Icons.school,backgroundColor: klightyellow,iconColor: Colors.amber.shade700,),
-                  IconButtonCard(text: 'Chatbot', icon: Icons.smart_toy,backgroundColor: klightGreen,iconColor: Colors.lime.shade700,),
+                  IconButtonCard(
+                    text: 'Reset Password',
+                    icon: Icons.key,
+                    backgroundColor: Colors.deepOrange.shade50,
+                    iconColor: Colors.deepOrange.shade300,
+                  ),
+                  IconButtonCard(
+                    text: 'Course Registration',
+                    icon: Icons.event_note,
+                    backgroundColor: klightPurple,
+                    iconColor: Colors.deepPurple.shade400,
+                  ),
+                  IconButtonCard(
+                    text: 'Academic Advisor',
+                    icon: Icons.school,
+                    backgroundColor: klightyellow,
+                    iconColor: Colors.amber.shade700,
+                  ),
+                  IconButtonCard(
+                    text: 'Chatbot',
+                    icon: Icons.smart_toy,
+                    backgroundColor: klightGreen,
+                    iconColor: Colors.lime.shade700,
+                  ),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Text('History',style: kdashSubCategoryStyle,),
+              child: Text(
+                'History',
+                style: kdashSubCategoryStyle,
+              ),
             ),
-
-            Stack(
-              children: [
-                Container(
-                  width: screenSize.width,
-                  decoration: BoxDecoration(
-                    //color: Colors.grey.shade300,
-                    gradient: kbuttonGradient,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                
-                child:  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6.0,bottom: 6),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 12),
-                      child: Text('Today',style: TextStyle(color: ksubtitleColor),),
+            Stack(children: [
+              Container(
+                width: screenSize.width,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6.0, bottom: 6),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 12),
+                        child: Text(
+                          'Today',
+                          style: TextStyle(color: ksubtitleColor),
+                        ),
+                      ),
                     ),
-                  ),
-                  HistoryCard(question: 'How to extract an official execuse?'),
-                  HistoryCard(question: 'When is my next Lecture?'),
-                  HistoryCard(question: 'What is the minimum gpa requirment to graduate?'),
-                ],
-                              ),
+                    HistoryCard(
+                        question: 'How to extract an official execuse?'),
+                    HistoryCard(question: 'When is my next Lecture?'),
+                    HistoryCard(
+                        question:
+                            'What is the minimum gpa requirment to graduate?'),
+                  ],
                 ),
-              ]
-            ),
-
+              ),
+            ]),
           ],
         ),
       ),

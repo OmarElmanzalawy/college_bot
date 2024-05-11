@@ -6,19 +6,20 @@ Color ksubtitleColor = Colors.black54;
 Color klightyellow = Color(0xfff8f2dc);
 Color klightGreen = Color(0xffe7ffd6);
 Color klightPurple = Color(0xfff4f0ff);
-
-
+Color kdefaultBackgroundColor = Colors.grey.shade100;
 Color kblueHeaderColor = Color(0xff4b68ff);
-
 
 // Color ksubtitleColor;
 
 //Color(0xff282828)
 
-LinearGradient kbuttonGradient = LinearGradient(colors: [Colors.lightBlue,Colors.blueAccent]);
+LinearGradient kbuttonGradient =
+    LinearGradient(colors: [Colors.lightBlue, Colors.blueAccent]);
 
 TextStyle kdefaultText = TextStyle(fontWeight: FontWeight.w500);
 
-TextStyle kdashSubCategoryStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: kblueTextColor);
+TextStyle kdashSubCategoryStyle =
+    TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: kblueTextColor);
 
-TextStyle ksubtitleText= TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black54);
+TextStyle ksubtitleText =
+    TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.black54);
