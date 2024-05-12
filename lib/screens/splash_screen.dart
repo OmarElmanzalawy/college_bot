@@ -1,13 +1,22 @@
 import 'package:college_bot/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/splashItem.dart';
+import 'package:lottie/lottie.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
 
-  int pageCounter = 0;
   static String id = 'splash_screen';
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  int pageCounter = 0;
+
   final PageController _pageController = PageController(initialPage: 0);
 
   void incrementPage() {
@@ -18,31 +27,41 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: PageView(controller: _pageController, children: [  
         //PAGE 1
         SplashItem(
           controller: _pageController,
-          image: AssetImage('images/chatbot.png'),
-          title: 'CollegeBotChat',
-          subtitle: 'Interactive chatbot for students',
+          //image: AssetImage('images/chatbot.png'),
+          animationPath: 'animations/animatedRobot.json',
+          title: 'Welcome to CollegeBot',
+          subtitle: 'Your AI-Powered Personal Assistant for AAST\n',
           onpressed: () {
             incrementPage();
           },
         ),
         SplashItem(
           controller: _pageController,
-          image: AssetImage('images/chatbot.png'),
-          title: 'CollegeBotChat',
-          subtitle: 'Interactive chatbot for students',
+          //image: AssetImage('images/chatbot.png'),
+          animationPath: 'animations/chatbubble.json',
+          title: 'Ask Anything',
+          subtitle: 'Get Instant Answers Anyime, Anywhere!\n',
           onpressed: () => incrementPage(),
         ),
         SplashItem(
           controller: _pageController,
-          image: AssetImage('images/chatbot.png'),
-          title: 'CollegeBotChat',
-          subtitle: 'Interactive chatbot for students',
+          //image: AssetImage('images/chatbot.png'),
+          animationPath: 'animations/headsetGirl.json',
+          title: 'Your Choice, Voice or Text',
+          subtitle: 'Interact with CollegeBot Using Text or Voice \n Get Answers the Way You Prefer!',
+          btnText: 'Next',
+          onpressed: () => incrementPage(),
+        ),
+        SplashItem(
+          controller: _pageController,
+          animationPath: 'animations/laptop.json',
+          title: 'University Insights',
+          subtitle: 'Ask University-Specific Questions \n Get Precise Answers Tailored for Your Academic Journey!',
           btnText: 'Login',
           onpressed: () => Navigator.pushNamed(context, '/signin'),
         ),

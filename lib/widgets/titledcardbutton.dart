@@ -67,7 +67,7 @@ class TitledCardButton extends StatelessWidget {
                       color: Colors.white,
                       size: 25,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

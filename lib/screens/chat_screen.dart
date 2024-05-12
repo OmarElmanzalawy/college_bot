@@ -43,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/dottedBackground.jpg'),
+                      image: AssetImage('images/dottedBackground3.jpg'),
                       fit: BoxFit.cover)),
             ),
             Column(

@@ -13,6 +13,7 @@ dependencies:
   typewritertext: ^3.0.3
   auto_size_text: ^3.0.0
   dotted_border: ^2.1.0
+  lottie: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +25,5 @@ flutter:
 
   assets: 
     - images/
+    - animations/
+
