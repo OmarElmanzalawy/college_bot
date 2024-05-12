@@ -105,6 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   TitledCardButton(
                     title: 'Chat with \nCollegeBot',
+                    chatType: ChatType.text,
                     icon: Icons.chat_bubble,
                     onpressed: () {
                       Navigator.pushNamed(context, '/chat');
@@ -114,6 +115,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.only(left: 35.0),
                     child: TitledCardButton(
                       title: 'Talk with \nCollegeBot',
+                      chatType: ChatType.voice,
                       icon: Icons.mic,
                       onpressed: () {
                         Navigator.pushNamed(context, '/voice');

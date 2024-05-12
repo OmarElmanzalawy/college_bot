@@ -7,10 +7,12 @@ class TitledCardButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onpressed;
   final Color? iconColor;
+  final ChatType chatType;
 
   TitledCardButton(
       {required this.title,
       required this.icon,
+      required this.chatType,
       this.onpressed,
       this.iconColor});
 
@@ -42,10 +44,13 @@ class TitledCardButton extends StatelessWidget {
                 height: 70,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: Colors.indigoAccent),
-                child: Icon(
-                  icon,
-                  size: 35,
-                  color: iconColor ?? Colors.white,
+                child: Hero(
+                  tag: chatType==ChatType.voice ? 'voice' : 'text',
+                  child: Icon(
+                    icon,
+                    size: 35,
+                    color: iconColor ?? Colors.white,
+                  ),
                 ),
               ),
             ),

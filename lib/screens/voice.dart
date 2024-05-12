@@ -61,10 +61,13 @@ class _VoiceScreenState extends State<VoiceScreen> {
                                     color: kdefaultBackgroundColor,
                                   ),
                                   child: Center(
-                                    child: Icon(
-                                      Icons.mic,
-                                      color: kblueTextColor,
-                                      size: 110,
+                                    child: Hero(
+                                      tag: 'voice',
+                                      child: Icon(
+                                        Icons.mic,
+                                        color: kblueTextColor,
+                                        size: 110,
+                                      ),
                                     ),
                                   ),
                                 ),
