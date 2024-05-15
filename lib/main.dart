@@ -2,7 +2,6 @@ import 'package:college_bot/screens/chat_screen.dart';
 import 'package:college_bot/screens/dashboard.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
-import 'package:college_bot/screens/test.dart';
 import 'package:college_bot/screens/voice.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/screens/splash_screen.dart';
@@ -26,8 +25,6 @@ class MainApp extends StatelessWidget {
         '/dashboard': (context) => DashboardScreen(),
         '/chat': (context) => const ChatScreen(),
         '/voice': (context) => const VoiceScreen(),
-        //for debugging only
-        '/test': (context) => const test(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: kdefaultBackgroundColor,

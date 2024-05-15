@@ -4,6 +4,7 @@ import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/widgets.dart';
 
 class VoiceScreen extends StatefulWidget {
   const VoiceScreen({super.key});
@@ -12,7 +13,31 @@ class VoiceScreen extends StatefulWidget {
   State<VoiceScreen> createState() => _VoiceScreenState();
 }
 
-class _VoiceScreenState extends State<VoiceScreen> {
+class _VoiceScreenState extends State<VoiceScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: Duration(seconds: 10));
+  bool isAnimating = false;
+  String headerQuestion = 'Questions will appear here!';
+  double innerCirclePadding = 0;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void startAnimation() {
+    if (_controller.isAnimating) {
+      isAnimating = false;
+      _controller.stop();
+    } else {
+      isAnimating = true;
+      _controller.forward();
+      _controller.repeat();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,39 +59,58 @@ class _VoiceScreenState extends State<VoiceScreen> {
                     padding: const EdgeInsets.only(top: 50.0),
                     child: Stack(
                       children: [
-                        DottedBorder(
-                          color: Colors.white,
-                          dashPattern: [5, 12],
-                          strokeWidth: 12,
-                          strokeCap: StrokeCap.butt,
-                          borderType: BorderType.Circle,
-                          child: Container(
-                            width: 300,
-                            height: 300,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.transparent,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(35.0),
-                              child: GestureDetector(
-                                onTapDown: (details) {
-                                  print('Holding');
-                                  print(details.toString());
-                                },
-                                onTapUp: (details) => print('released'),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: kdefaultBackgroundColor,
-                                  ),
-                                  child: Center(
-                                    child: Hero(
-                                      tag: 'voice',
-                                      child: Icon(
-                                        Icons.mic,
-                                        color: kblueTextColor,
-                                        size: 110,
+                        RotationTransition(
+                          turns:
+                              Tween(begin: 0.0, end: 1.0).animate(_controller),
+                          child: DottedBorder(
+                            color: Colors.white,
+                            dashPattern: [5, 12],
+                            strokeWidth: 12,
+                            strokeCap: StrokeCap.butt,
+                            borderType: BorderType.Circle,
+                            child: Container(
+                              width: 300,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.transparent,
+                              ),
+                              child: AnimatedPadding(
+                                padding: EdgeInsets.all(innerCirclePadding),
+                                duration: Duration(milliseconds: 700),
+                                child: GestureDetector(
+                                  onTapDown: (details) {
+                                    //TODO: FIX MIC ICON ROTATING
+                                    print('Holding');
+                                    print(details.toString());
+
+                                    setState(() {
+                                      startAnimation();
+                                      headerQuestion = 'Recording...';
+                                      innerCirclePadding = 35;
+                                    });
+                                  },
+                                  onTapUp: (details) {
+                                    print('released');
+                                    startAnimation();
+                                    headerQuestion =
+                                        'Questions will appear here';
+                                    innerCirclePadding = 0;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: kdefaultBackgroundColor,
+                                    ),
+                                    child: Center(
+                                      child: Hero(
+                                        tag: 'voice',
+                                        child: Icon(
+                                          Icons.mic,
+                                          color: kblueTextColor,
+                                          size: 110,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -83,7 +127,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Questions will appear here!',
+                    headerQuestion,
                     style: TextStyle(
                       color: kdefaultBackgroundColor,
                       fontSize: 20,
@@ -108,7 +152,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0,bottom: 8),
+                      padding: const EdgeInsets.only(right: 8.0, bottom: 8),
                       child: Container(
                         width: 35,
                         height: 35,
@@ -117,10 +161,13 @@ class _VoiceScreenState extends State<VoiceScreen> {
                           color: kblueHeaderColor,
                         ),
                         child: IconButton(
-                          onPressed: (){},
-                           icon: Icon(Icons.arrow_forward,size: 20,),
-                           color: Colors.white,
-                           ),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.arrow_forward,
+                            size: 20,
+                          ),
+                          color: Colors.white,
+                        ),
                       ),
                     )
                   ],

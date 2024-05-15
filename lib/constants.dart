@@ -24,7 +24,9 @@ TextStyle kdashSubCategoryStyle =
 TextStyle ksubtitleText =
     TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.black54);
 
-enum ChatType {
-  voice,
-  text
+enum ChatType { voice, text }
+
+enum MessageSender {
+  user,
+  ai,
 }
