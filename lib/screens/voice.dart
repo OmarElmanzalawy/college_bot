@@ -14,16 +14,30 @@ class VoiceScreen extends StatefulWidget {
 }
 
 class _VoiceScreenState extends State<VoiceScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _controller =
       AnimationController(vsync: this, duration: Duration(seconds: 10));
+    late final AnimationController _colorController =
+      AnimationController(vsync: this, duration: Duration(seconds: 1));
+    late final Animation<Color?> colorAnimation;
+  
   bool isAnimating = false;
   String headerQuestion = 'Questions will appear here!';
   double innerCirclePadding = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     colorAnimation = ColorTween(begin: kblueHeaderColor,end: Colors.blue.shade900).animate(_colorController)..addListener(() {setState(() {
+       
+     });});
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
+    _colorController.dispose();
     super.dispose();
   }
 
@@ -31,10 +45,12 @@ class _VoiceScreenState extends State<VoiceScreen>
     if (_controller.isAnimating) {
       isAnimating = false;
       _controller.stop();
+      _colorController.reverse();
     } else {
       isAnimating = true;
       _controller.forward();
       _controller.repeat();
+      _colorController.forward();
     }
   }
 
@@ -51,7 +67,7 @@ class _VoiceScreenState extends State<VoiceScreen>
                 child: Container(
                   height: 500,
                   padding: EdgeInsets.all(0),
-                  color: kblueHeaderColor,
+                  color: colorAnimation.value,
                 ),
               ),
               Center(
