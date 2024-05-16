@@ -62,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       //reverse: false,
                       children: [
                         ChatBubble(
-                            text: 'What is the northampton program?',
+                            text: 'What is a dual degree program?',
                             sender: MessageSender.user),
                         ChatBubble(
                             text:

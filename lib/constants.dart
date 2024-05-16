@@ -8,6 +8,7 @@ Color klightGreen = Color(0xffe7ffd6);
 Color klightPurple = Color(0xfff4f0ff);
 Color kdefaultBackgroundColor = Colors.grey.shade100;
 Color kblueHeaderColor = Color(0xff4b68ff);
+Color kblueProfileTextColor = Colors.blue.shade800;
 
 // Color ksubtitleColor;
 

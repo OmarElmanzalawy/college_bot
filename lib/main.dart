@@ -1,5 +1,6 @@
 import 'package:college_bot/screens/chat_screen.dart';
 import 'package:college_bot/screens/dashboard.dart';
+import 'package:college_bot/screens/profile_screen.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
 import 'package:college_bot/screens/voice.dart';
@@ -17,7 +18,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/splash',
+      initialRoute: '/voice',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),
@@ -25,9 +26,12 @@ class MainApp extends StatelessWidget {
         '/dashboard': (context) => DashboardScreen(),
         '/chat': (context) => const ChatScreen(),
         '/voice': (context) => const VoiceScreen(),
+        '/profile':(context) => const ProfileScreen(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: kdefaultBackgroundColor,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent
       ),
     );
   }
