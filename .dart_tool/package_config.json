@@ -80,6 +80,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "holding_gesture",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/holding_gesture-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "http",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.1",
       "packageUri": "lib/",
@@ -248,7 +254,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-15T17:38:16.286157Z",
+  "generated": "2024-05-19T21:54:19.669487Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/widgets.dart';
+import 'package:holding_gesture/holding_gesture.dart';
+import 'package:lottie/lottie.dart';
 
 class VoiceScreen extends StatefulWidget {
   const VoiceScreen({super.key});
@@ -16,22 +18,26 @@ class VoiceScreen extends StatefulWidget {
 class _VoiceScreenState extends State<VoiceScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: Duration(seconds: 10));
-    late final AnimationController _colorController =
+      AnimationController(vsync: this, duration: Duration(seconds: 15));
+  late final AnimationController _colorController =
       AnimationController(vsync: this, duration: Duration(seconds: 1));
-    late final Animation<Color?> colorAnimation;
-  
+  late final Animation<Color?> colorAnimation;
+
   bool isAnimating = false;
   String headerQuestion = 'Questions will appear here!';
   double innerCirclePadding = 0;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     colorAnimation = ColorTween(begin: kblueHeaderColor,end: Colors.blue.shade900).animate(_colorController)..addListener(() {setState(() {
-       
-     });});
+    colorAnimation =
+        ColorTween(begin: kblueHeaderColor, end: Colors.blue.shade900)
+            .animate(_colorController)
+          ..addListener(() {
+            setState(() {});
+          });
   }
 
   @override
@@ -53,6 +59,13 @@ class _VoiceScreenState extends State<VoiceScreen>
       _colorController.forward();
     }
   }
+
+void resetAnimation(){
+  if(_controller.isAnimating){
+    _controller.reset();
+    _colorController.reset();
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -89,49 +102,68 @@ class _VoiceScreenState extends State<VoiceScreen>
                               height: 300,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.transparent,
                               ),
                               child: AnimatedPadding(
                                 padding: EdgeInsets.all(innerCirclePadding),
                                 duration: Duration(milliseconds: 700),
-                                child: GestureDetector(
-                                  onTapDown: (details) {
-                                    //TODO: FIX MIC ICON ROTATING
-                                    print('Holding');
-                                    print(details.toString());
-
+                                child: HoldTimeoutDetector(
+                                  holdTimeout: Duration(seconds: 10),
+                                  onTap: (){
+                                    print('press');
+                                    //_controller.stop();
+                                    resetAnimation();
+                                    innerCirclePadding = 0;
                                     setState(() {
+                                      
+                                    });
+                                    },
+                                  onTimeout: () {
+                                    setState(() {
+                                      print('timeout');
                                       startAnimation();
-                                      headerQuestion = 'Recording...';
-                                      innerCirclePadding = 35;
+                                      headerQuestion =
+                                          'Questions will appear here';
+                                      innerCirclePadding = 0;
                                     });
                                   },
-                                  onTapUp: (details) {
-                                    print('released');
-                                    startAnimation();
-                                    headerQuestion =
-                                        'Questions will appear here';
-                                    innerCirclePadding = 0;
-                                    setState(() {});
+                                  onCancel: (){
+                                      setState(() {
+                                      print('Released');
+                                      startAnimation();
+                                      headerQuestion =
+                                          'Questions will appear here';
+                                      innerCirclePadding = 0;
+                                    });
+                                  },
+                                  onTimerInitiated: () {
+                                    setState(() {
+                                      print('holding');
+                                      resetAnimation();
+                                      startAnimation();
+                                      headerQuestion = 'Recording...';
+                                      innerCirclePadding = 45;
+                                    });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: kdefaultBackgroundColor,
                                     ),
-                                    child: Center(
-                                      child: Hero(
-                                        tag: 'voice',
-                                        child: Icon(
-                                          Icons.mic,
-                                          color: kblueTextColor,
-                                          size: 110,
-                                        ),
-                                      ),
-                                    ),
                                   ),
                                 ),
                               ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 95,
+                          top: 95,
+                          child: isAnimating ? Lottie.asset('animations/waveAnimation.json',repeat: true,fit: BoxFit.cover,width: 110,height: 100) : Hero(
+                            tag: 'voice',
+                            child: Icon(
+                              Icons.mic,
+                              color: kblueHeaderColor,
+                              size: 110,
                             ),
                           ),
                         ),
@@ -213,4 +245,6 @@ class _VoiceScreenState extends State<VoiceScreen>
       )),
     );
   }
+
+  //void onHold()
 }
