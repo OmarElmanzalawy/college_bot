@@ -1,15 +1,12 @@
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
-import 'package:college_bot/curves/diagonalCurvedClipper2.dart';
 import 'package:college_bot/curves/diagonalPathClipper1.dart';
 import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
 import 'package:college_bot/widgets/historyCard.dart';
 import 'package:college_bot/widgets/titledcardbutton.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -118,15 +115,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             onTap: (){
                               Navigator.pushNamed(context, '/profile');
                             },
-                            child: Container(
-                              width: 60,
-                              height: 65,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(image:  AssetImage('images/profile_female.jpg'),fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                                border: Border.all(color: kdefaultBackgroundColor,width: 1,style: BorderStyle.solid),
-                              ),
-                                              ),
+                            child: Hero(
+                              tag: 'profile',
+                              child: Container(
+                                width: 60,
+                                height: 65,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(image:  AssetImage('images/profile_female.jpg'),fit: BoxFit.cover),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: kdefaultBackgroundColor,width: 1,style: BorderStyle.solid),
+                                ),
+                                                ),
+                            ),
                           ),
                         ),
                       ],

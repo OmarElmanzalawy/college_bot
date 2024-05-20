@@ -3,9 +3,7 @@ import 'dart:math';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -35,10 +33,13 @@ class ProfileScreen extends StatelessWidget {
               Positioned(
                 top: 162,
                 left: screenSize.width * 0.33,
-                child: Container(
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage('images/profile_female.jpg'),
-                    radius: 70,
+                child: Hero(
+                  tag: 'profile',
+                  child: Container(
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('images/profile_female.jpg'),
+                      radius: 70,
+                    ),
                   ),
                 ),
               ),
