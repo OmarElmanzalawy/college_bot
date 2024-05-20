@@ -1,9 +1,12 @@
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
+import 'package:college_bot/curves/diagonalCurvedClipper2.dart';
+import 'package:college_bot/curves/diagonalPathClipper1.dart';
 import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
 import 'package:college_bot/widgets/historyCard.dart';
 import 'package:college_bot/widgets/titledcardbutton.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -84,18 +87,58 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ClipPath(
                 clipper: CustomCurvedEdge(),
                 child: Container(
-                  height: 150,
-                  padding: EdgeInsets.all(0),
+                  height: 200,
+                  padding: EdgeInsets.only(bottom: 14),
                   color: kblueHeaderColor,
+                  child: ClipPath(
+                    clipper: DiagonalPathClipperOne(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.lerp(kblueHeaderColor, Colors.black, 0.1),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Text(
-                    'Dashboard',
-                    style: TextStyle(color: Colors.white, fontSize: 35),
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 14),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Welcome,',
+                          style: TextStyle(color: Colors.white, fontSize: 35,fontWeight: FontWeight.w300),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, '/profile');
+                            },
+                            child: Container(
+                              width: 60,
+                              height: 65,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(image:  AssetImage('images/profile_female.jpg'),fit: BoxFit.cover),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: kdefaultBackgroundColor,width: 1,style: BorderStyle.solid),
+                              ),
+                                              ),
+                          ),
+                        ),
+                      ],
+                    ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Omar Elmanzlawy,',
+                            style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.w500,),
+                          ),
+                        ),
+                  ],
                 ),
               ),
             ]),
