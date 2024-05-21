@@ -19,6 +19,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //precacheImage(AssetImage('images/profile_female.jpg'), context);
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -107,12 +108,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       children: [
                         Text(
                           'Welcome,',
-                          style: TextStyle(color: Colors.white, fontSize: 35,fontWeight: FontWeight.w300),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.w300),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 15.0),
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pushNamed(context, '/profile');
                             },
                             child: Hero(
@@ -121,23 +125,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 width: 60,
                                 height: 65,
                                 decoration: BoxDecoration(
-                                  image: DecorationImage(image:  AssetImage('images/profile_female.jpg'),fit: BoxFit.cover),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'images/profile_female.jpg'),
+                                      fit: BoxFit.cover),
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: kdefaultBackgroundColor,width: 1,style: BorderStyle.solid),
+                                  border: Border.all(
+                                      color: kdefaultBackgroundColor,
+                                      width: 1,
+                                      style: BorderStyle.solid),
                                 ),
-                                                ),
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Omar Elmanzlawy,',
-                            style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.w500,),
-                          ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Omar Elmanzlawy,',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
                         ),
+                      ),
+                    ),
                   ],
                 ),
               ),

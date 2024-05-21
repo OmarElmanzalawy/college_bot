@@ -9,14 +9,23 @@ import 'package:college_bot/screens/splash_screen.dart';
 import 'constants.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  final List<String> imageUrls = [
+    'images/robot-c.png',
+    'images/profile_female.jpg'
+  ];
 
   @override
   Widget build(BuildContext context) {
+    imageUrls.forEach((element) {
+      precacheImage(AssetImage(element), context);
+    });
+
     return MaterialApp(
       initialRoute: '/splash',
       routes: {
@@ -26,13 +35,12 @@ class MainApp extends StatelessWidget {
         '/dashboard': (context) => DashboardScreen(),
         '/chat': (context) => const ChatScreen(),
         '/voice': (context) => const VoiceScreen(),
-        '/profile':(context) => const ProfileScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: kdefaultBackgroundColor,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent
-      ),
+          scaffoldBackgroundColor: kdefaultBackgroundColor,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent),
     );
   }
 }

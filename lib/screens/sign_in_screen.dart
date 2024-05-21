@@ -46,7 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Transform.rotate(
                   angle: pi / 12,
                   child: Image(
-                    image: AssetImage('images/robot.png'),
+                    image: AssetImage('images/robot-c.png'),
                     height: 250,
                   ),
                 )),
