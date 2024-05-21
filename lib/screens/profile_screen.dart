@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';

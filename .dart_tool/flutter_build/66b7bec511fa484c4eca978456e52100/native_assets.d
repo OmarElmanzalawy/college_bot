@@ -1,1 +1,0 @@
- D:\\Programing\\Flutter\\college_bot\\.dart_tool\\flutter_build\\66b7bec511fa484c4eca978456e52100\\native_assets.yaml: 

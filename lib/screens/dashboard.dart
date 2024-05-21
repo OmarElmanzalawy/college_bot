@@ -5,9 +5,7 @@ import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
 import 'package:college_bot/widgets/historyCard.dart';
 import 'package:college_bot/widgets/titledcardbutton.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:typewritertext/typewritertext.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -291,11 +289,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     HistoryCard(
-                        question: 'How to extract an official execuse?'),
-                    HistoryCard(question: 'When is my next Lecture?'),
+                        question: 'How to extract an official execuse?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
+                    //HistoryCard(question: 'When is my next Lecture?'),
+                    HistoryCard(question: 'When is my next Lecture?', answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
                     HistoryCard(
                         question:
-                            'What is the minimum gpa requirment to graduate?'),
+                            'What is the minimum gpa requirment to graduate?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
                   ],
                 ),
               ),

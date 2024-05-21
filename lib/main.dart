@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/splash',
+      initialRoute: '/dashboard',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),
