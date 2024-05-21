@@ -1,32 +1,46 @@
+import 'package:college_bot/screens/chat_screen.dart';
 import 'package:college_bot/screens/dashboard.dart';
+import 'package:college_bot/screens/profile_screen.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
+import 'package:college_bot/screens/voice.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/screens/splash_screen.dart';
 import 'constants.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  final List<String> imageUrls = [
+    'images/robot-c.png',
+    'images/profile_female.jpg'
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      initialRoute: '/splash',
+    imageUrls.forEach((element) {
+      precacheImage(AssetImage(element), context);
+    });
 
+    return MaterialApp(
+      initialRoute: '/dashboard',
       routes: {
-        '/splash':(context) => SplashScreen(),
-        '/signin':(context) => const SignInScreen(),
-        '/signup':(context) => const SignUpScreen(),
-        '/dashboard':(context) => DashboardScreen(),
+        '/splash': (context) => SplashScreen(),
+        '/signin': (context) => const SignInScreen(),
+        '/signup': (context) => const SignUpScreen(),
+        '/dashboard': (context) => DashboardScreen(),
+        '/chat': (context) => const ChatScreen(),
+        '/voice': (context) => const VoiceScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Colors.grey.shade100,
-
-      ),
+          scaffoldBackgroundColor: kdefaultBackgroundColor,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent),
     );
   }
 }

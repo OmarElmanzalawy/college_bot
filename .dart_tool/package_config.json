@@ -2,16 +2,22 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "animated_bottom_navigation_bar",
-      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/animated_bottom_navigation_bar-1.3.3",
+      "name": "archive",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.5.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "async",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "auto_size_text",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/auto_size_text-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "boolean_selector",
@@ -38,6 +44,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "dotted_border",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/dotted_border-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -60,6 +78,24 @@
       "rootUri": "file:///E:/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "holding_gesture",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/holding_gesture-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "leak_tracker",
@@ -86,6 +122,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "lottie",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/lottie-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
@@ -104,10 +146,28 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "page_transition",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/page_transition-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "path_drawing",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/path_drawing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/path_parsing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
@@ -158,6 +218,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "typed_data",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "typewritertext",
       "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/typewritertext-3.0.3",
       "packageUri": "lib/",
@@ -176,13 +242,19 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "web",
+      "rootUri": "file:///C:/Users/Omar/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "college_bot",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-06T22:52:22.894943Z",
+  "generated": "2024-05-21T20:43:33.504746Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

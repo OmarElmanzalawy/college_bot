@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
@@ -42,11 +41,15 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
             Positioned(
-              right: 255,top: 100,child: Transform.rotate
-            (angle: pi/12,
-              child: Image(image: AssetImage('images/robot.png'),height: 250,),
-            )
-            ),
+                right: 255,
+                top: 100,
+                child: Transform.rotate(
+                  angle: pi / 12,
+                  child: Image(
+                    image: AssetImage('images/robot-c.png'),
+                    height: 250,
+                  ),
+                )),
           ]),
           TitledTextField(
             title: 'Student Id',
@@ -98,7 +101,10 @@ class _SignInScreenState extends State<SignInScreen> {
               textColor: Colors.white,
               text: 'Login',
               onpressed: () {
-                Navigator.pushNamed(context, '/dashboard');
+                Navigator.pushNamed(
+                  context,
+                  '/dashboard',
+                );
               },
             ),
           ),
