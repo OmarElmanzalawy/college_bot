@@ -52,8 +52,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 )),
           ]),
           TitledTextField(
-            title: 'Student Id',
-            hint: 'Enter your student ID',
+            title: 'Email',
+            hint: 'Enter your email',
             suffixIcon: Icon(Icons.fingerprint),
           ),
           TitledTextField(
