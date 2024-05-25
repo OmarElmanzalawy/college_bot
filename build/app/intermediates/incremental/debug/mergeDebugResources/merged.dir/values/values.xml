@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <attr format="reference" name="nestedScrollViewStyle"/>
     <attr format="enum" name="splitLayoutDirection">
         <enum name="locale" value="0"/>
@@ -89,7 +89,15 @@
     <item name="text" type="id"/>
     <item name="text2" type="id"/>
     <item name="title" type="id"/>
+    <integer name="google_play_services_version">12451000</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
+    <string name="common_google_play_services_unknown_issue"><ns1:g id="app_name">%1$s</ns1:g> is having trouble with Google Play services. Please try again.</string>
+    <string name="gcm_defaultSenderId" translatable="false">302867077246</string>
+    <string name="google_api_key" translatable="false">AIzaSyBTj9YPCT5v42k8hC0oLqkLajzT64W5JzU</string>
+    <string name="google_app_id" translatable="false">1:302867077246:android:b6eea2486a3a5588d4602f</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBTj9YPCT5v42k8hC0oLqkLajzT64W5JzU</string>
+    <string name="google_storage_bucket" translatable="false">college-bot-3b7aa.appspot.com</string>
+    <string name="project_id" translatable="false">college-bot-3b7aa</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
         

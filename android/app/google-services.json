@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "302867077246",
+    "project_id": "college-bot-3b7aa",
+    "storage_bucket": "college-bot-3b7aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302867077246:android:b6eea2486a3a5588d4602f",
+        "android_client_info": {
+          "package_name": "com.example.college_bot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTj9YPCT5v42k8hC0oLqkLajzT64W5JzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

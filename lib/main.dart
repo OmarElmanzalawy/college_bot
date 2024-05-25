@@ -1,14 +1,21 @@
+import 'package:college_bot/firebase_options.dart';
 import 'package:college_bot/screens/chat_screen.dart';
 import 'package:college_bot/screens/dashboard.dart';
 import 'package:college_bot/screens/profile_screen.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
 import 'package:college_bot/screens/voice.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/screens/splash_screen.dart';
 import 'constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  print('firebase initialized');
   runApp(MainApp());
 }
 
@@ -27,7 +34,7 @@ class MainApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/dashboard',
+      initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),

@@ -1,4 +1,7 @@
-#Tue May 21 23:44:37 EEST 2024
-base.0=D\:\\Programming\\Flutter\\college_bot_git\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
+#Sat May 25 01:32:11 EET 2024
+base.1=D\:\\Programming\\Flutter\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+path.1=classes2.dex
+base.0=D\:\\Programming\\Flutter\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
+path.0=classes.dex
