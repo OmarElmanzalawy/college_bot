@@ -5,6 +5,7 @@ import 'package:college_bot/screens/profile_screen.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
 import 'package:college_bot/screens/voice.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/screens/splash_screen.dart';
@@ -16,6 +17,23 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   print('firebase initialized');
+
+  //FirebaseAuth.instance.signOut();
+
+  var auth = FirebaseAuth.instance.authStateChanges()
+  .listen((User? user){
+
+    print('User: $user');
+    
+
+    if(user == null){
+      print('User is currently signed out');
+    }
+    else{
+      print('User is signed in');
+    }
+  });
+
   runApp(MainApp());
 }
 
@@ -34,7 +52,7 @@ class MainApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/splash',
+      initialRoute: '/signin',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),
