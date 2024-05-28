@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
+import 'package:college_bot/widgets/loadingDialog.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+  bool isLoading = false;
+  bool finishedLoading = false;
   bool ischecked = false;
   @override
   Widget build(BuildContext context) {
@@ -107,17 +110,22 @@ class _SignInScreenState extends State<SignInScreen> {
               child: ActionButton(
                 textColor: Colors.white,
                 text: 'Login',
-                onpressed: () {
-                  final Future<String?> loginResponse = AuthService.login(
-                          email: _emailController.text,
-                          password: _passwordController.text);
+                onpressed: () async {
+                  LoadingDialog.show(context, 'Signing In...');
+                  var loginResponse = await AuthService.login(
+                      email: _emailController.text,
+                      password: _passwordController.text);
                   print(loginResponse.toString());
-                  if (loginResponse ==' Success') {
-                    print('Login Successfully');
-                    Navigator.pushNamed(
+                  if (loginResponse == 'Success') {
+                    setState(() {
+                      LoadingDialog.finishedLoading = true;
+                      print('Login Successfully');
+                      /*Navigator.pushNamed(
                       context,
                       '/dashboard',
-                    );
+                    );*/
+                      LoadingDialog.hide(context);
+                    });
                   } else {
                     //TODO: DISPLAY SNACKBAR INDICATING FAILED LOGIN
                     print('Login Failed');

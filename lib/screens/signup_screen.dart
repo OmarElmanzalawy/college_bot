@@ -15,8 +15,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
-  TextEditingController  _emailController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _idController = TextEditingController();
@@ -26,7 +25,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Stack(children: [
               ClipPath(
                 clipper: CustomCurvedEdge(),
@@ -86,20 +86,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 text: 'SignUp',
                 backgroundColor: Colors.blue,
                 textColor: Colors.white,
-                onpressed: () { 
-          
-                  if(AuthService.register(email: _emailController.text, password: _passwordController.text) == 'Success'){
-                  
-                  Navigator.pushNamed(context, '/dashboard');
-          
-                  }
-                  else{
+                onpressed: () async {
+                  if (await AuthService.register(
+                          email: _emailController.text,
+                          password: _passwordController.text) ==
+                      true) {
+                    Navigator.pushNamed(context, '/dashboard');
+                  } else {
                     //TODO: DISPLAY SNACKBAR
                     print('Signup failed');
                   }
-          
-                  
-                  },
+                },
               ),
             )
           ]),

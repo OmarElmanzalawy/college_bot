@@ -18,18 +18,12 @@ void main() async {
   );
   print('firebase initialized');
 
-  //FirebaseAuth.instance.signOut();
-
-  var auth = FirebaseAuth.instance.authStateChanges()
-  .listen((User? user){
-
+  var auth = FirebaseAuth.instance.authStateChanges().listen((User? user) {
     print('User: $user');
-    
 
-    if(user == null){
+    if (user == null) {
       print('User is currently signed out');
-    }
-    else{
+    } else {
       print('User is signed in');
     }
   });
@@ -52,7 +46,8 @@ class MainApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/signin',
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? '/splash' : '/dashboard',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),

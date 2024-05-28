@@ -1,6 +1,7 @@
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
 
-          //LIST TILES 
+          //LIST TILES
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: ListTile(
@@ -121,9 +122,17 @@ class ProfileScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 160.0),
-            child: ActionButton(text: 'Logout',backgroundColor: Colors.red,textColor: Colors.white,onpressed: (){
-              //TODO: IMPLEMENT LOGOUT FUNCTIONALITY
-            },),
+            child: ActionButton(
+              text: 'Logout',
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              onpressed: () async {
+                //TODO: IMPLEMENT LOGOUT FUNCTIONALITY
+                await FirebaseAuth.instance.signOut();
+                //TODO DISPLAY SNACK BAR OR LOADING INDICATOR UNTILL LOGOUT IS COMPLETED
+                Navigator.pushNamed(context, '/signin');
+              },
+            ),
           )
         ],
       ),
