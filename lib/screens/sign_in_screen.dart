@@ -3,6 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/constants.dart';
@@ -96,10 +97,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 155.0),
-                    child: Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.w500),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/forgetpassword');
+                      },
+                      child: Text(
+                        'Forgot Password',
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.w500),
+                      ),
                     ),
                   )
                 ],

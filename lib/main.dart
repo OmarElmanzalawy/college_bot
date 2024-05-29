@@ -1,6 +1,7 @@
 import 'package:college_bot/firebase_options.dart';
 import 'package:college_bot/screens/chat_screen.dart';
 import 'package:college_bot/screens/dashboard.dart';
+import 'package:college_bot/screens/forget_password.dart';
 import 'package:college_bot/screens/profile_screen.dart';
 import 'package:college_bot/screens/sign_in_screen.dart';
 import 'package:college_bot/screens/signup_screen.dart';
@@ -46,8 +47,9 @@ class MainApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute:
-          FirebaseAuth.instance.currentUser == null ? /*'/splash'*/'/signin' : '/dashboard',
+      initialRoute: FirebaseAuth.instance.currentUser == null
+          ? /*'/splash'*/ '/signin'
+          : '/dashboard',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/signin': (context) => const SignInScreen(),
@@ -56,6 +58,7 @@ class MainApp extends StatelessWidget {
         '/chat': (context) => const ChatScreen(),
         '/voice': (context) => const VoiceScreen(),
         '/profile': (context) => const ProfileScreen(),
+        '/forgetpassword': (context) => const ForgetPasswordScreen(),
       },
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: kdefaultBackgroundColor,
