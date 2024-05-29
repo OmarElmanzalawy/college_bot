@@ -1,7 +1,7 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
-import 'package:college_bot/widgets/loadingDialog.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -111,23 +111,46 @@ class _SignInScreenState extends State<SignInScreen> {
                 textColor: Colors.white,
                 text: 'Login',
                 onpressed: () async {
-                  LoadingDialog.show(context, 'Signing In...');
                   var loginResponse = await AuthService.login(
                       email: _emailController.text,
                       password: _passwordController.text);
                   print(loginResponse.toString());
                   if (loginResponse == 'Success') {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Login Successful',
+                          message: '',
+                          messageFontSize: 0,
+                          contentType: ContentType.success,
+                          color: Colors.lightBlue,
+                        ),
+                      ));
                     setState(() {
-                      LoadingDialog.finishedLoading = true;
                       print('Login Successfully');
-                      /*Navigator.pushNamed(
-                      context,
-                      '/dashboard',
-                    );*/
-                      LoadingDialog.hide(context);
+                      Navigator.pushNamed(
+                        context,
+                        '/dashboard',
+                      );
                     });
+                  } else if (loginResponse == '') {
                   } else {
-                    //TODO: DISPLAY SNACKBAR INDICATING FAILED LOGIN
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                            title: loginResponse! ?? 'Error',
+                            message: '',
+                            messageFontSize: 0,
+                            contentType: ContentType.failure),
+                      ));
                     print('Login Failed');
                   }
                 },

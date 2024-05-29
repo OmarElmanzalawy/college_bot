@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';
@@ -44,17 +45,68 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 50.0),
-            child: Text(
-              'Full Name',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: kblueProfileTextColor,
-              ),
+          Text(
+            'Full Name',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: kblueProfileTextColor,
             ),
           ),
+          FirebaseAuth.instance.currentUser!.emailVerified ? SizedBox() :
+          TextButton(child: 
+          Text('Verify Now', style: TextStyle(color: kblueProfileTextColor.withOpacity(0.8),decoration: TextDecoration.underline,decorationColor: kblueProfileTextColor),), 
+          onPressed: (){
+
+          showDialog(context: context, 
+          builder: ((BuildContext context) => AlertDialog(
+            title: Text('Email Verfication'),
+            content: Text('Do you want to verify this account?'),
+            actions: [
+              TextButton(onPressed: () async{
+                try{
+                await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+                }
+                on FirebaseAuthException catch(e){
+                  if(e.code == 'too-many-requests'){
+                      ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Already Sent',
+                          message: 'An email has already been sent to you',
+                          contentType: ContentType.failure,
+                        ),
+                      ));
+                  }
+                }
+                Navigator.pop(context,'Send');
+                        ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Check your email!',
+                          message: 'Verification link has been sent to your email.',
+                          contentType: ContentType.success,
+                          color: Colors.lightBlue,
+                        ),
+                      ));
+              }, 
+              child: Text('Send')),
+
+              TextButton(onPressed: (){Navigator.pop(context,'Cancel');}, child: Text('Cancel'),)
+            ],
+          ))
+
+          );  
+
+          },),
 
           //LIST TILES
           Padding(
