@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  static Future<bool> register({
+  static Future<String> register({
     required String email,
     required String password,
   }) async {
@@ -10,27 +10,27 @@ class AuthService {
         email: email,
         password: password,
       );
-      return true;
+      return 'Success';
     } on FirebaseAuthException catch (e) {
       print('firebase exception');
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
-        return false;
+        return 'Password is too weak';
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-        return false;
+        return 'An account already exists for that email';
       } else if (e.code == 'invalid-email') {
         print('Invalid Email');
-        return false;
+        return 'Invalid Email';
       } else {
         print('Code: ${e.code}');
         print(e.message);
-        return false;
+        return e.code;
       }
     } catch (e) {
       print('Other type of error');
       print(e.toString());
-      return false;
+      return 'Error Occured';
     }
   }
 
@@ -49,17 +49,13 @@ class AuthService {
         return 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         return 'Wrong Password';
-      }
-      else if(e.code == 'invalid-email') {
+      } else if (e.code == 'invalid-email') {
         return 'Invalid Email';
-      }
-      else if(e.code=='wrong-password'){
+      } else if (e.code == 'wrong-password') {
         return 'Wrong Password';
-      }
-      else if(e.code =='too-many-requests'){
+      } else if (e.code == 'too-many-requests') {
         return 'Stop Spamming!';
-      }
-      else {
+      } else {
         print('Code: ${e.code}');
         return 'Error code: ${e.code}';
       }

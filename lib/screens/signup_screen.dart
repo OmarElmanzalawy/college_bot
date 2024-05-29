@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
@@ -87,13 +88,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 backgroundColor: Colors.blue,
                 textColor: Colors.white,
                 onpressed: () async {
-                  if (await AuthService.register(
-                          email: _emailController.text,
-                          password: _passwordController.text) ==
-                      true) {
+                  var signupResponse = await AuthService.register(
+                      email: _emailController.text,
+                      password: _passwordController.text);
+                  if (signupResponse == 'Success') {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Signup Successful',
+                          message: '',
+                          messageFontSize: 0,
+                          contentType: ContentType.success,
+                          color: Colors.lightBlue,
+                        ),
+                      ));
                     Navigator.pushNamed(context, '/dashboard');
                   } else {
                     //TODO: DISPLAY SNACKBAR
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                            title: signupResponse,
+                            message: '',
+                            messageFontSize: 0,
+                            contentType: ContentType.failure),
+                      ));
                     print('Signup failed');
                   }
                 },
