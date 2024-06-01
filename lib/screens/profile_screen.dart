@@ -1,4 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';
@@ -93,49 +94,7 @@ class ProfileScreen extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                         onPressed: () async {
-                                          try {
-                                            await FirebaseAuth
-                                                .instance.currentUser!
-                                                .sendEmailVerification();
-                                          } on FirebaseAuthException catch (e) {
-                                            if (e.code == 'too-many-requests') {
-                                              ScaffoldMessenger.of(context)
-                                                ..hideCurrentSnackBar()
-                                                ..showSnackBar(SnackBar(
-                                                  elevation: 0,
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  content:
-                                                      AwesomeSnackbarContent(
-                                                    title: 'Already Sent',
-                                                    message:
-                                                        'An email has already been sent to you',
-                                                    contentType:
-                                                        ContentType.failure,
-                                                  ),
-                                                ));
-                                            }
-                                          }
-                                          Navigator.pop(context, 'Send');
-                                          ScaffoldMessenger.of(context)
-                                            ..hideCurrentSnackBar()
-                                            ..showSnackBar(SnackBar(
-                                              elevation: 0,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              content: AwesomeSnackbarContent(
-                                                title: 'Check your email!',
-                                                message:
-                                                    'Verification link has been sent to your email.',
-                                                contentType:
-                                                    ContentType.success,
-                                                color: Colors.lightBlue,
-                                              ),
-                                            ));
+                                          AuthService.verifyEmail(context);
                                         },
                                         child: Text('Send')),
                                     TextButton(
@@ -222,10 +181,25 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: Colors.red,
               textColor: Colors.white,
               onpressed: () async {
-                //TODO: IMPLEMENT LOGOUT FUNCTIONALITY
-                await FirebaseAuth.instance.signOut();
-                //TODO DISPLAY SNACK BAR OR LOADING INDICATOR UNTILL LOGOUT IS COMPLETED
-                Navigator.pushNamed(context, '/signin');
+                showDialog(
+                    context: context,
+                    builder: ((BuildContext context) => AlertDialog(
+                          title: Text('Logout'),
+                          content: Text('Are you sure you want to logout?'),
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  AuthService.logout(context);
+                                },
+                                child: Text('Logout')),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                              },
+                              child: Text('Cancel'),
+                            )
+                          ],
+                        )));
               },
             ),
           )

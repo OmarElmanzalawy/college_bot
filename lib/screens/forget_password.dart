@@ -1,4 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
@@ -37,71 +38,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 12.0),
               child: ElevatedButton(
                   onPressed: () async {
-                    try {
-                      await FirebaseAuth.instance
-                          .sendPasswordResetEmail(email: _emailController.text);
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            title: 'Email Sent!',
-                            message: 'Check your inbox',
-                            messageFontSize: 10,
-                            contentType: ContentType.success,
-                            color: Colors.lightBlue,
-                          ),
-                        ));
-                      Navigator.pop(context);
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(
-                            elevation: 0,
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.transparent,
-                            content: AwesomeSnackbarContent(
-                              title: 'User not found',
-                              message:
-                                  'This email is not associated with any accounts',
-                              messageFontSize: 10,
-                              contentType: ContentType.failure,
-                            ),
-                          ));
-                      } else if (e.code == 'invalid-email') {
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(
-                            elevation: 0,
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.transparent,
-                            content: AwesomeSnackbarContent(
-                              title: 'Invalid email',
-                              message: '',
-                              messageFontSize: 0,
-                              contentType: ContentType.failure,
-                            ),
-                          ));
-                      } else {
-                        print('error catched: ${e.message}');
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(
-                            elevation: 0,
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.transparent,
-                            content: AwesomeSnackbarContent(
-                              title: 'Error Occured',
-                              message: '',
-                              messageFontSize: 0,
-                              contentType: ContentType.failure,
-                            ),
-                          ));
-                      }
-                    }
+                    AuthService.forgetpassword(context, _emailController.text);
                   },
                   child: Text('Send Email')),
             )
