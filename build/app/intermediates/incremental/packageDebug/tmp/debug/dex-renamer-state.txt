@@ -1,4 +1,4 @@
-#Sat Jun 01 22:42:47 EET 2024
+#Sun Jun 02 01:47:13 EET 2024
 base.1=D\:\\Programming\\Flutter\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
 base.0=D\:\\Programming\\Flutter\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex

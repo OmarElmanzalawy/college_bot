@@ -52,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Full Name',
+                      AuthService.displayname ?? 'Null',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
               : Column(
                   children: [
                     Text(
-                      'Full Name',
+                      AuthService.displayname ?? 'Null',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

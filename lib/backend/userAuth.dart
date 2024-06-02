@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
+  static String? displayname = FirebaseAuth.instance.currentUser!.displayName;
+
   static Future<String> register({
     required String email,
     required String password,

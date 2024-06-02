@@ -15,15 +15,22 @@ class ForgetPasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kblueHeaderColor,
+        backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.white),
       ),
       backgroundColor: kblueHeaderColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              height: 350,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/lock.png'),
+                      fit: BoxFit.contain)),
+            ),
             Text(
               'Enter your email and we will send you a password reset link',
               textAlign: TextAlign.center,
@@ -35,12 +42,18 @@ class ForgetPasswordScreen extends StatelessWidget {
             TitledTextField(
                 hint: 'Enter your email', controller: _emailController),
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
+              padding: const EdgeInsets.only(top: 30.0),
               child: ElevatedButton(
-                  onPressed: () async {
-                    AuthService.forgetpassword(context, _emailController.text);
-                  },
-                  child: Text('Send Email')),
+                onPressed: () async {
+                  AuthService.forgetpassword(context, _emailController.text);
+                },
+                child: Text('Send Email'),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Colors.white,
+                    ),
+                    foregroundColor: MaterialStateProperty.all(Colors.black)),
+              ),
             )
           ],
         ),

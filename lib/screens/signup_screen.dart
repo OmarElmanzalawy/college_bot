@@ -4,6 +4,7 @@ import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:college_bot/widgets/titledTextField.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:college_bot/constants.dart';
 import 'package:flutter/widgets.dart';
@@ -106,6 +107,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: Colors.lightBlue,
                         ),
                       ));
+                    print('Name Textfield: ${_nameController.text}');
+                    await FirebaseAuth.instance.currentUser!
+                        .updateDisplayName(_nameController.text);
                     Navigator.pushNamed(context, '/dashboard');
                   } else {
                     //TODO: DISPLAY SNACKBAR

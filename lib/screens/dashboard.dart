@@ -1,3 +1,4 @@
+import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/curves/diagonalPathClipper1.dart';
@@ -142,7 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Omar Elmanzlawy,',
+                        '${AuthService.displayname ?? 'Null'},',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -289,12 +290,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     HistoryCard(
-                        question: 'How to extract an official execuse?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
+                      question: 'How to extract an official execuse?',
+                      answer:
+                          'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',
+                    ),
                     //HistoryCard(question: 'When is my next Lecture?'),
-                    HistoryCard(question: 'When is my next Lecture?', answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
                     HistoryCard(
-                        question:
-                            'What is the minimum gpa requirment to graduate?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
+                      question: 'When is my next Lecture?',
+                      answer:
+                          'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',
+                    ),
+                    HistoryCard(
+                      question:
+                          'What is the minimum gpa requirment to graduate?',
+                      answer:
+                          'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',
+                    ),
                   ],
                 ),
               ),

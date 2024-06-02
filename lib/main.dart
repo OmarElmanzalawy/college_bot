@@ -63,7 +63,17 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: kdefaultBackgroundColor,
           splashColor: Colors.transparent,
-          highlightColor: Colors.transparent),
+          highlightColor: Colors.transparent,
+          dialogTheme: DialogTheme(
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            iconColor: Colors.blue,
+          ),
+          textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.blue,
+                  textStyle:
+                      TextStyle(fontSize: 15, fontWeight: FontWeight.bold)))),
     );
   }
 }
