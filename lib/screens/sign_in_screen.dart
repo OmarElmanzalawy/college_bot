@@ -69,6 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
             TitledTextField(
               title: 'Password',
               controller: _passwordController,
+              isSensitive: true,
               hint: 'Enter your password',
               suffixIcon: Icon(Icons.lock),
             ),

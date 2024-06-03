@@ -46,12 +46,6 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         body: Stack(
           children: [
-            /*Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('images/dottedBackground3.jpg'),
-                      fit: BoxFit.cover)),
-            ),*/
             Padding(
               padding: const EdgeInsets.only(top: 12.0, left: 8, right: 8),
               child: Column(
@@ -92,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ));
   }

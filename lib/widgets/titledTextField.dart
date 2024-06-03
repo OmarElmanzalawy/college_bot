@@ -6,13 +6,15 @@ class TitledTextField extends StatefulWidget {
   final Icon? suffixIcon;
   final Color? backgroundColor;
   final TextEditingController controller;
+  final bool? isSensitive;
 
   TitledTextField(
       {this.title,
       required this.hint,
       this.backgroundColor,
       this.suffixIcon,
-      required this.controller});
+      required this.controller,
+      this.isSensitive});
 
   @override
   State<TitledTextField> createState() => _TitledTextFieldState();
@@ -34,6 +36,7 @@ class _TitledTextFieldState extends State<TitledTextField> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(children: [
       Align(
           alignment: Alignment.centerLeft,
@@ -45,11 +48,12 @@ class _TitledTextFieldState extends State<TitledTextField> {
             ),
           )),
       TextField(
+        obscureText: widget.isSensitive ?? false ? true : false,
         controller: widget.controller,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            suffixIcon: widget.suffixIcon,
+            suffixIcon: widget.suffixIcon ,
             filled: true,
             fillColor: widget.backgroundColor ?? Colors.white,
             //labelText: 'Student ID',
