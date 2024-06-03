@@ -32,6 +32,10 @@ class _VoiceScreenState extends State<VoiceScreen>
   bool islistening = false;
   String recognizedText = '';
 
+  final TextEditingController _questionController = TextEditingController();
+
+  bool questionSumbitted = false;
+
     @override
   void initState() {
     // TODO: implement initState
@@ -60,6 +64,7 @@ class _VoiceScreenState extends State<VoiceScreen>
       onResult: (result) {
         setState(() {
           recognizedText = result.recognizedWords;
+          _questionController.text = recognizedText;
           print('recognized: ${recognizedText}');
         });
       },
@@ -71,6 +76,7 @@ class _VoiceScreenState extends State<VoiceScreen>
       await speech.stop();
       setState(() {
         islistening = false;
+        print('Stopped Listening');
       });
     }
   }
@@ -80,6 +86,7 @@ class _VoiceScreenState extends State<VoiceScreen>
   void dispose() {
     _controller.dispose();
     _colorController.dispose();
+    _questionController.dispose();
     super.dispose();
   }
 
@@ -105,7 +112,12 @@ void resetAnimation(){
 
   @override
   Widget build(BuildContext context) {
+
+    
+    
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Column(
         children: [
@@ -149,6 +161,7 @@ void resetAnimation(){
                                     //_controller.stop();
                                     resetAnimation();
                                     innerCirclePadding = 0;
+                                    headerQuestion = 'Questions will appear here';
                                     setState(() {
                                       
                                     });
@@ -175,6 +188,7 @@ void resetAnimation(){
                                   },
                                   onTimerInitiated: () {
                                     setState(() {
+                                      questionSumbitted = false;
                                       print('holding');
                                       resetAnimation();
                                       startAnimation();
@@ -213,56 +227,62 @@ void resetAnimation(){
                 padding: const EdgeInsets.only(top: 400.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Text(
-                    headerQuestion,
-                    style: TextStyle(
-                      color: kdefaultBackgroundColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                  child: AnimatedSwitcher(
+                    duration: Duration(seconds: 2),
+                    child: Text(
+                      headerQuestion,
+                      style: TextStyle(
+                        color: kdefaultBackgroundColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
+                    key: ValueKey<String>(headerQuestion),
                   ),
                 ),
               ),
             ],
           ),
           Expanded(
-            flex: 2,
+            flex: questionSumbitted ? 1 : 2,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(seconds: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Column(
-                  children: [
-                    Text(recognizedText,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0, bottom: 8),
-                          child: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: kblueHeaderColor,
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.arrow_forward,
-                                size: 20,
-                              ),
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
+                child: TextField(
+                  controller: _questionController,
+                  readOnly: _questionController.text.isEmpty ? true : false,
+                  cursorColor: Colors.transparent,
+                  maxLines: 11,
+                  decoration: InputDecoration(
+                    //filled: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kblueTextColor,width: 1.5),borderRadius: BorderRadius.circular(12)),
+                    border: InputBorder.none,
+                    suffixIcon: IconButton(onPressed: (){
+                      //TODO: IMPLEMENT SUBMIT RECOGNIZED TEXT
+                      setState(() {
+                        if(_questionController.text.isEmpty){
+
+                        }
+                        else{
+                        headerQuestion = _questionController.text;
+                        questionSumbitted = true;
+                        _questionController.text = '';
+                        }
+                      });
+                      
+
+                    }, icon: Icon(Icons.arrow_forward,color: Colors.white,),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kblueHeaderColor),
+
                     ),
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -277,7 +297,8 @@ void resetAnimation(){
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
@@ -289,6 +310,4 @@ void resetAnimation(){
       )),
     );
   }
-
-  //void onHold()
 }

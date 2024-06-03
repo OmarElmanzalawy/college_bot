@@ -1,4 +1,4 @@
-#Mon Jun 03 04:43:20 EEST 2024
+#Mon Jun 03 17:04:09 EEST 2024
 base.0=D\:\\Programming\\Flutter\\college_bot_git\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\Programming\\Flutter\\college_bot_git\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=D\:\\Programming\\Flutter\\college_bot_git\\college_bot\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
