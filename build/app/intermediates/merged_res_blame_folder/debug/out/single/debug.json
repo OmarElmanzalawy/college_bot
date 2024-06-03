@@ -20,10 +20,6 @@
         "source": "com.example.college_bot.app-main-9:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.college_bot.app-merged_res-16:/drawable_launch_background.xml.flat",
-        "source": "com.example.college_bot.app-main-9:/drawable/launch_background.xml"
-    },
-    {
         "merged": "com.example.college_bot.app-merged_res-16:/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "com.example.college_bot.app-main-9:/mipmap-xxxhdpi/ic_launcher.png"
     }

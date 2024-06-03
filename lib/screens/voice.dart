@@ -7,6 +7,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/widgets.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:lottie/lottie.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class VoiceScreen extends StatefulWidget {
   const VoiceScreen({super.key});
@@ -27,11 +28,15 @@ class _VoiceScreenState extends State<VoiceScreen>
   String headerQuestion = 'Questions will appear here!';
   double innerCirclePadding = 0;
 
+  late SpeechToText speech;
+  bool islistening = false;
+  String recognizedText = '';
 
-  @override
+    @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    iniSpeechToText();
     colorAnimation =
         ColorTween(begin: kblueHeaderColor, end: Colors.blue.shade900)
             .animate(_colorController)
@@ -39,6 +44,37 @@ class _VoiceScreenState extends State<VoiceScreen>
             setState(() {});
           });
   }
+
+  Future<void> iniSpeechToText()async{
+    speech = SpeechToText();
+    bool available = await speech.initialize();
+    if(available){
+      setState(() {
+        islistening = false;
+      });
+    }
+  }
+
+  void _startListnening(){
+    speech.listen(
+      onResult: (result) {
+        setState(() {
+          recognizedText = result.recognizedWords;
+          print('recognized: ${recognizedText}');
+        });
+      },
+    );
+  }
+
+  void _stopListening()async{
+    if(islistening){
+      await speech.stop();
+      setState(() {
+        islistening = false;
+      });
+    }
+  }
+
 
   @override
   void dispose() {
@@ -124,6 +160,7 @@ void resetAnimation(){
                                       headerQuestion =
                                           'Questions will appear here';
                                       innerCirclePadding = 0;
+                                      _stopListening();
                                     });
                                   },
                                   onCancel: (){
@@ -133,6 +170,7 @@ void resetAnimation(){
                                       headerQuestion =
                                           'Questions will appear here';
                                       innerCirclePadding = 0;
+                                      _stopListening();
                                     });
                                   },
                                   onTimerInitiated: () {
@@ -142,6 +180,7 @@ void resetAnimation(){
                                       startAnimation();
                                       headerQuestion = 'Recording...';
                                       innerCirclePadding = 45;
+                                      _startListnening();
                                     });
                                   },
                                   child: Container(
@@ -195,29 +234,34 @@ void resetAnimation(){
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0, bottom: 8),
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: kblueHeaderColor,
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.arrow_forward,
-                            size: 20,
+                    Text(recognizedText,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0, bottom: 8),
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: kblueHeaderColor,
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.arrow_forward,
+                                size: 20,
+                              ),
+                              color: Colors.white,
+                            ),
                           ),
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
