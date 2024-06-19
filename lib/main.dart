@@ -48,7 +48,7 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       initialRoute: FirebaseAuth.instance.currentUser == null
-          ? '/splash'
+          ? '/chat' /*'/splash'*/
           : '/dashboard',
       routes: {
         '/splash': (context) => SplashScreen(),

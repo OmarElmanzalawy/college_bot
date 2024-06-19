@@ -16,36 +16,34 @@ class ChatBubble extends StatelessWidget {
           : Alignment.centerLeft,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Expanded(
-          child: Container(
-            constraints:
-                BoxConstraints(minWidth: 200, minHeight: 75, maxWidth: 230),
-            decoration: BoxDecoration(
-              borderRadius: sender == MessageSender.user
-                  ? BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(0))
-                  : BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(15)),
-              color: sender == MessageSender.user
-                  ? kblueTextColor
-                  : Colors.grey.shade200,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AutoSizeText(
-                text,
-                style: TextStyle(
-                    color: sender == MessageSender.user
-                        ? Colors.white
-                        : Colors.black,
-                    fontSize: 15),
-              ),
+        child: Container(
+          constraints:
+              BoxConstraints(minWidth: 50, minHeight: 40, maxWidth: 230),
+          decoration: BoxDecoration(
+            borderRadius: sender == MessageSender.user
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(0))
+                : BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(15)),
+            color: sender == MessageSender.user
+                ? kblueTextColor
+                : Colors.grey.shade200,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AutoSizeText(
+              text,
+              style: TextStyle(
+                  color: sender == MessageSender.user
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 15),
             ),
           ),
         ),

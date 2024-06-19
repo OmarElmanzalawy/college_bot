@@ -20,6 +20,7 @@ dependencies:
   speech_to_text: ^6.6.1
   firebase_core: ^2.31.1
   firebase_auth: ^4.19.6
+  google_generative_ai: ^0.4.3
 
 dev_dependencies:
   flutter_test:
