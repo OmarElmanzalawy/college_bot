@@ -4,6 +4,7 @@ import 'package:college_bot/widgets/chatBubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -13,6 +14,21 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    final model = GenerativeModel(
+        model: 'gemini-1.5-flash',
+        apiKey: 'AIzaSyB5TlIz7vfPaLqBEfi50LMbMCzNWwZ09Qk');
+    final prompt = 'Write a story about a magic backpack.';
+    final content = [Content.text(prompt)];
+    final response = model.generateContentStream(content);
+    print(response.isEmpty);
+    print(response.isBroadcast);
+    print(response.toString());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
