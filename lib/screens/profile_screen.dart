@@ -5,13 +5,30 @@ import 'package:college_bot/curves/ovalTopBorder.dart';
 import 'package:college_bot/widgets/actionButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_rating_stars/animated_rating_stars.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  double rating = 2.0;
+
+    var ratingMap = {
+      1.0: 'Bad',
+      2.0: 'Okay',
+      3.0: 'Good',
+      4.0: 'Very Good',
+      5.0: 'Excellent'
+    };
+  @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    
+    String? ratingText = ratingMap[rating];
 
     return Scaffold(
       body: Column(
@@ -47,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
 
-          FirebaseAuth.instance.currentUser!.emailVerified
+          FirebaseAuth.instance.currentUser!.emailVerified 
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -128,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                 color: kblueProfileTextColor,
               ),
               onTap: () {
-                print('clicked');
+                Navigator.pushNamed(context, '/editinfo');
               },
             ),
           ),
@@ -140,7 +157,7 @@ class ProfileScreen extends StatelessWidget {
                 color: kblueProfileTextColor,
               ),
               title: Text(
-                'Feedback',
+                'Review our app',
                 style: TextStyle(fontSize: 16, color: Colors.grey.shade800),
               ),
               trailing: Icon(
@@ -149,7 +166,66 @@ class ProfileScreen extends StatelessWidget {
                 color: kblueProfileTextColor,
               ),
               onTap: () {
-                print('clicked');
+                showDialog(
+                    context: context,
+                    builder: ((BuildContext context) => AlertDialog(
+                          title: Text('Review'),
+                          content: StatefulBuilder(builder:
+                              (BuildContext context, StateSetter setState) {
+                            return SingleChildScrollView(
+                              child: Center(
+                                  child: Column(
+                                children: [
+                                  AnimatedRatingStars(
+                                    onChanged: (double newRating) {
+                                      rating = newRating;
+                                      print(rating);
+                                      setState(() {
+                                        ratingText = ratingMap[rating];
+                                        print(ratingText);
+                                      });
+                                    },
+                                    customFilledIcon: Icons.star,
+                                    customHalfFilledIcon: Icons.star,
+                                    customEmptyIcon: Icons.star,
+                                    initialRating: rating,
+                                    minRating: 0.0,
+                                    maxRating: 5.0,
+                                    filledColor: kblueProfileTextColor,
+                                  ),
+                                  Text(ratingText ?? 'null')
+                                ],
+                              )),
+                            );
+                          }),
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  ScaffoldMessenger.of(context)
+                                    ..hideCurrentSnackBar()
+                                    ..showSnackBar(SnackBar(
+                                      elevation: 0,
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.transparent,
+                                      content: AwesomeSnackbarContent(
+                                        title: 'Thank you for your Review!',
+                                        message: '',
+                                        messageFontSize: 0,
+                                        contentType: ContentType.success,
+                                        color: Colors.lightBlue,
+                                      ),
+                                    ));
+                                    Navigator.pop(context);
+                                },
+                                child: Text('Submit')),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                              },
+                              child: Text('Cancel'),
+                            )
+                          ],
+                        )));
               },
             ),
           ),
@@ -175,7 +251,42 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 160.0),
+            padding: const EdgeInsets.only(top: 12.0),
+            child: ListTile(
+              leading: Icon(
+                Icons.info,
+                color: kblueProfileTextColor,
+              ),
+              title: Text(
+                'About this app',
+                style: TextStyle(fontSize: 16, color: Colors.grey.shade800),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+                color: kblueProfileTextColor,
+              ),
+              onTap: () {
+                showAboutDialog(
+                    context: context,
+                    applicationName: 'College Bot',
+                    applicationVersion: 'Version: 0.1',
+                    children: [
+                      Container(
+                        child: Text(
+                          'CollegeBot is an AI-powered mobile application designed to assist college students throughout their academic journey.',
+                          textAlign: TextAlign.justify,
+                        ),
+                        width: 50,
+                        height: 80,
+                      )
+                    ]);
+                print('clicked');
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 100.0),
             child: ActionButton(
               text: 'Logout',
               backgroundColor: Colors.red,

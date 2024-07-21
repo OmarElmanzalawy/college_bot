@@ -67,7 +67,7 @@ class _CustomStackState extends State<CustomStack>
                           vertical: 25.0, horizontal: 12),
                       child: Container(
                         //width: 330,
-                        height: 150,
+                        height: 185,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.transparent),
@@ -96,11 +96,17 @@ class _CustomStackState extends State<CustomStack>
                                   enabled: false,
                                   controller: _typeWriterController,
                                   builder: (p0, value) {
-                                    return AutoSizeText(
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                      value.text,
-                                      maxLines: 5,
+                                    return Container(
+                                      height: 100,
+                                      color: Colors.transparent,
+                                      child: AutoSizeText(
+                                        minFontSize: 12,
+                                        maxFontSize: 18,
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.white,fontWeight: FontWeight.bold),
+                                        value.text,
+                                        maxLines: 5,
+                                      ),
                                     );
                                   },
                                 ),
@@ -134,22 +140,6 @@ class _CustomStackState extends State<CustomStack>
                         btnText,
                         style: TextStyle(color: Colors.black87),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            iconSize: 17,
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.chat_bubble,
-                              color: Colors.white,
-                            )),
-                        Text(
-                          'Chat',
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                        ),
-                      ],
                     ),
                   ],
                 ),

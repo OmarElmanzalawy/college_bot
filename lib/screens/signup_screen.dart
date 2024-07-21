@@ -78,9 +78,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               suffixIcon: Icon(Icons.lock),
             ),
             TitledTextField(
-              title: 'Student ID',
+              title: 'Registration Number',
               controller: _idController,
-              hint: 'Enter your student ID',
+              hint: 'Enter your registration number',
               suffixIcon: Icon(Icons.fingerprint),
             ),
             Padding(

@@ -1,55 +1,57 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/widgets/chatBubble.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../generative_model_view_model.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends ConsumerStatefulWidget {
   const ChatScreen({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
-  @override
-  void initState() {
-    final model = GenerativeModel(
-        model: 'gemini-1.5-flash',
-        apiKey: 'AIzaSyB5TlIz7vfPaLqBEfi50LMbMCzNWwZ09Qk');
-    final prompt = 'Write a story about a magic backpack.';
-    final content = [Content.text(prompt)];
-    final response = model.generateContentStream(content);
-    print(response.isEmpty);
-    print(response.isBroadcast);
-    print(response.toString());
-
-    super.initState();
-  }
+class _ChatScreenState extends ConsumerState<ChatScreen> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final chatMessages = ref.watch(chatProvider);
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        //7extendBodyBehindAppBar: true,
         appBar: AppBar(
           toolbarHeight: 160,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Container(
+          title: /*Container(
             height: 140,
             width: 140,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: kblueHeaderColor,
+                color: Colors.blue, // Adjusted to match your theme
                 border: Border.all(color: Colors.yellow, width: 4),
                 image: DecorationImage(
-                    image: AssetImage(
-                      'images/chat_robot.png',
-                    ),
+                    image: AssetImage('images/chat_robot.png'),
                     fit: BoxFit.cover)),
+          ),*/
+          ListTile(
+            leading: Container(
+            height: 55,
+            width: 55,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: kbuttonGradient, // Adjusted to match your theme
+                border: Border.all(color: Colors.yellow, width: 4),
+                image: DecorationImage(
+                    image: AssetImage('images/chat_robot.png'),
+                    fit: BoxFit.cover)),
+          ),
+            title: Text('Nano',style: TextStyle(fontSize: 25,letterSpacing: 3,),),
+            subtitle: Row(children: [
+              Icon(Icons.circle,color: Colors.green.shade600,size: 12,),
+              Text('Active Now!',style: TextStyle(fontSize: 12),)
+            ],),
           ),
           centerTitle: true,
           actions: [
@@ -67,37 +69,53 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Column(
             children: [
               Expanded(
-                child: ListView(
+                child: ListView.builder(
                   padding: EdgeInsets.all(8),
-                  //reverse: true,
-                  children: [
-                    ChatBubble(
-                        text: 'What is a dual degree program?',
-                        sender: MessageSender.user),
-                    ChatBubble(
-                        text:
-                            'A dual degree program is an academic program that allows a student to earn two different degrees simultaneously, typically from two separate academic disciplines or fields of study. These programs are designed to provide a more comprehensive education by combining courses from both degree programs, often resulting in a broader skill set and enhanced career opportunities.',
-                        sender: MessageSender.ai),
-                  ],
+                  itemCount: chatMessages.length,
+                  itemBuilder: (context, index) {
+                    final isUserMessage =
+                        chatMessages[index].startsWith("You:");
+                    return ChatBubble(
+                      text: chatMessages[index],
+                      sender:
+                          isUserMessage ? MessageSender.user : MessageSender.ai,
+                    );
+                  },
                 ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 12),
-                    suffixIcon: Icon(Icons.attachment),
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    //labelText: 'Student ID',
-                    hintText: 'Ask anything...',
-                    //suffixIcon: Icon(Icons),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(25)),
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 12),
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          hintText: 'Ask anything...',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.send,color: kblueTextColor,),
+                      onPressed: () {
+                        if (_controller.text.isNotEmpty) {
+                          ref
+                              .read(chatProvider.notifier)
+                              .sendMessage(_controller.text);
+                          _controller.clear();
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],

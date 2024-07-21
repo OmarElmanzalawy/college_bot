@@ -1,23 +1,33 @@
-import 'dart:math';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/widgets.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:lottie/lottie.dart';
-import 'package:speech_to_text/speech_to_text.dart';
+import '../generative_model_view_model.dart';
 
-class VoiceScreen extends StatefulWidget {
-  const VoiceScreen({super.key});
-
-  @override
-  State<VoiceScreen> createState() => _VoiceScreenState();
+extension StringExtensions on String { 
+  String capitalize() { 
+    return "${this[0].toUpperCase()}${this.substring(1)}"; 
+  } 
 }
 
-class _VoiceScreenState extends State<VoiceScreen>
+class VoiceAssistantView extends ConsumerStatefulWidget {
+  @override
+  _VoiceAssistantViewState createState() => _VoiceAssistantViewState();
+}
+
+class _VoiceAssistantViewState extends ConsumerState<VoiceAssistantView>
     with TickerProviderStateMixin {
+  late SpeechToText _speechToText;
+  bool isListening = false;
+  String recognizedText = "";
+  final TextEditingController _aiResponseController = TextEditingController();
+
+
   late final AnimationController _controller =
       AnimationController(vsync: this, duration: Duration(seconds: 15));
   late final AnimationController _colorController =
@@ -28,17 +38,9 @@ class _VoiceScreenState extends State<VoiceScreen>
   String headerQuestion = 'Questions will appear here!';
   double innerCirclePadding = 0;
 
-  late SpeechToText speech;
-  bool islistening = false;
-  String recognizedText = '';
 
-  final TextEditingController _questionController = TextEditingController();
-
-  bool questionSumbitted = false;
-
-    @override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     iniSpeechToText();
     colorAnimation =
@@ -50,44 +52,50 @@ class _VoiceScreenState extends State<VoiceScreen>
   }
 
   Future<void> iniSpeechToText()async{
-    speech = SpeechToText();
-    bool available = await speech.initialize();
+    _speechToText = SpeechToText();
+    bool available = await _speechToText.initialize();
     if(available){
       setState(() {
-        islistening = false;
+        isListening = false;
       });
     }
   }
 
   void _startListnening(){
-    speech.listen(
+    _speechToText.listen(
       onResult: (result) {
         setState(() {
           recognizedText = result.recognizedWords;
-          _questionController.text = recognizedText;
+          _aiResponseController.text = recognizedText;
           print('recognized: ${recognizedText}');
         });
       },
     );
   }
 
-  void _stopListening()async{
-    if(islistening){
-      await speech.stop();
-      setState(() {
-        islistening = false;
-        print('Stopped Listening');
-      });
-    }
+  void _stopListening() async {
+    await _speechToText.stop();
+    setState(() {});
   }
 
+  void _getAiResponse(String query) async {
+    if (query.isEmpty) return;
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    _colorController.dispose();
-    _questionController.dispose();
-    super.dispose();
+    setState(() {
+      _aiResponseController.text = "Fetching AI response...";
+    });
+
+    try {
+      final response = await ref.read(chatProvider.notifier).sendMessage(query);
+      setState(() {
+        print('response: $response');
+        _aiResponseController.text = response;
+      });
+    } catch (e) {
+      setState(() {
+        _aiResponseController.text = "Error: $e";
+      });
+    }
   }
 
   void startAnimation() {
@@ -103,36 +111,41 @@ class _VoiceScreenState extends State<VoiceScreen>
     }
   }
 
-void resetAnimation(){
-  if(_controller.isAnimating){
-    _controller.reset();
-    _colorController.reset();
+  void resetAnimation() {
+    if (_controller.isAnimating) {
+      _controller.reset();
+      _colorController.reset();
+    }
   }
-}
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _colorController.dispose();
+    _aiResponseController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    
-    
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-          child: Column(
-        children: [
-          Stack(
-            children: [
-              ClipPath(
-                clipper: CustomCurvedEdge(),
-                child: Container(
-                  height: 500,
-                  padding: EdgeInsets.all(0),
-                  color: colorAnimation.value,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipPath(
+                  clipper:
+                      CustomCurvedEdge(), // Assuming you have a custom clipper
+                  child: Container(
+                    height: 500,
+                    padding: EdgeInsets.all(0),
+                    color: colorAnimation.value,
+                  ),
                 ),
-              ),
-              Center(
-                child: Padding(
+                Center(
+                  child: Padding(
                     padding: const EdgeInsets.only(top: 50.0),
                     child: Stack(
                       children: [
@@ -156,16 +169,14 @@ void resetAnimation(){
                                 duration: Duration(milliseconds: 700),
                                 child: HoldTimeoutDetector(
                                   holdTimeout: Duration(seconds: 10),
-                                  onTap: (){
+                                  onTap: () {
                                     print('press');
-                                    //_controller.stop();
                                     resetAnimation();
                                     innerCirclePadding = 0;
-                                    headerQuestion = 'Questions will appear here';
-                                    setState(() {
-                                      
-                                    });
-                                    },
+                                    headerQuestion =
+                                        'Questions will appear here';
+                                    setState(() {});
+                                  },
                                   onTimeout: () {
                                     setState(() {
                                       print('timeout');
@@ -176,19 +187,17 @@ void resetAnimation(){
                                       _stopListening();
                                     });
                                   },
-                                  onCancel: (){
-                                      setState(() {
+                                  onCancel: () {
+                                    setState(() {
                                       print('Released');
                                       startAnimation();
-                                      headerQuestion =
-                                          'Questions will appear here';
+                                      headerQuestion = 'Questions will appear here';
                                       innerCirclePadding = 0;
                                       _stopListening();
                                     });
                                   },
                                   onTimerInitiated: () {
                                     setState(() {
-                                      questionSumbitted = false;
                                       print('holding');
                                       resetAnimation();
                                       startAnimation();
@@ -211,103 +220,103 @@ void resetAnimation(){
                         Positioned(
                           left: 95,
                           top: 95,
-                          child: isAnimating ? Lottie.asset('animations/waveAnimation.json',repeat: true,fit: BoxFit.cover,width: 110,height: 100) : Hero(
-                            tag: 'voice',
-                            child: Icon(
-                              Icons.mic,
-                              color: kblueHeaderColor,
-                              size: 110,
-                            ),
-                          ),
+                          child: isAnimating
+                              ? Lottie.asset(
+                                  'animations/waveAnimation.json',
+                                  repeat: true,
+                                  fit: BoxFit.cover,
+                                  width: 110,
+                                  height: 100,
+                                )
+                              : Hero(
+                                  tag: 'voice',
+                                  child: Icon(
+                                    Icons.mic,
+                                    color: kblueHeaderColor,
+                                    size: 110,
+                                  ),
+                                ),
                         ),
                       ],
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 400.0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AnimatedSwitcher(
-                    duration: Duration(seconds: 2),
-                    child: Text(
-                      headerQuestion,
-                      style: TextStyle(
-                        color: kdefaultBackgroundColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 400.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 500),
+                      child: Text(
+                        headerQuestion,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        key: ValueKey<String>(headerQuestion),
                       ),
                     ),
-                    key: ValueKey<String>(headerQuestion),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            flex: questionSumbitted ? 1 : 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: AnimatedContainer(
-                duration: Duration(seconds: 3),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextField(
-                  controller: _questionController,
-                  readOnly: _questionController.text.isEmpty ? true : false,
-                  cursorColor: Colors.transparent,
-                  maxLines: 11,
-                  decoration: InputDecoration(
-                    //filled: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kblueTextColor,width: 1.5),borderRadius: BorderRadius.circular(12)),
-                    border: InputBorder.none,
-                    suffixIcon: IconButton(onPressed: (){
-                      //TODO: IMPLEMENT SUBMIT RECOGNIZED TEXT
-                      setState(() {
-                        if(_questionController.text.isEmpty){
-
-                        }
-                        else{
-                        headerQuestion = _questionController.text;
-                        questionSumbitted = true;
-                        _questionController.text = '';
-                        }
-                      });
-                      
-
-                    }, icon: Icon(Icons.arrow_forward,color: Colors.white,),
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kblueHeaderColor),
-
+              ],
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 3),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextField(
+                    controller: _aiResponseController,
+                    cursorColor: Colors.transparent,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 35, 77, 203),
+                            width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      border: InputBorder.none,
+                      labelText: 'Response',
                     ),
-                    ),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
               ),
             ),
-          ),
-          Divider(
-            thickness: 4,
-            color: Colors.grey.shade400,
-            indent: 100,
-            endIndent: 100,
-          ),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
+            Container(
+              alignment: Alignment.bottomLeft,
+              margin: EdgeInsets.all(16),
+              child: ElevatedButton(
+                onPressed: () {
+                  //headerQuestion = _aiResponseController.text.isNotEmpty ? _aiResponseController.text : headerQuestion;
+                  _getAiResponse(recognizedText);
+                  print('paramater: $recognizedText');
+                  headerQuestion = recognizedText.split(' ').map((word) => word.capitalize()).join(' '); 
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kblueHeaderColor,
+                ),
+                child: Text(
+                  'Get  Response',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
+  
 }
+

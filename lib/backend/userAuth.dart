@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 
 class AuthService {
   static String? displayname = FirebaseAuth.instance.currentUser!.displayName;
+  static FirebaseAuth instance = FirebaseAuth.instance;
+
+  static bool isUserVerified(){
+    return FirebaseAuth.instance.currentUser!.emailVerified;
+  }
 
   static Future<String> register({
     required String email,
@@ -174,7 +179,7 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
     //TODO DISPLAY SNACK BAR OR LOADING INDICATOR UNTILL LOGOUT IS COMPLETED
     Navigator.pushReplacementNamed(context, '/signin');
-    ScaffoldMessenger.of(context)
+    /*ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
         elevation: 0,
@@ -187,6 +192,11 @@ class AuthService {
           contentType: ContentType.success,
           color: Colors.lightBlue,
         ),
-      ));
+      ));*/
   }
+
+  static Future<String> getdisplayName()async{
+    return await FirebaseAuth.instance.currentUser!.displayName!;
+  }
+
 }
