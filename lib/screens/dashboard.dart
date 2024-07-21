@@ -1,11 +1,17 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:college_bot/backend/userAuth.dart';
 import 'package:college_bot/constants.dart';
 import 'package:college_bot/curves/customCurvedEdge.dart';
 import 'package:college_bot/curves/diagonalPathClipper1.dart';
+import 'package:college_bot/pages/home_page.dart';
+import 'package:college_bot/screens/advisor_screen.dart';
+import 'package:college_bot/screens/gradesScreen.dart';
 import 'package:college_bot/widgets/IconButtonCard.dart';
 import 'package:college_bot/widgets/customStack.dart';
 import 'package:college_bot/widgets/historyCard.dart';
 import 'package:college_bot/widgets/titledcardbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -142,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Omar Elmanzlawy,',
+                        '${AuthService.displayname ?? 'Null'},',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -163,7 +169,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     chatType: ChatType.text,
                     icon: Icons.chat_bubble,
                     onpressed: () {
-                      Navigator.pushNamed(context, '/chat');
+                      if(AuthService.isUserVerified()){
+                       Navigator.pushNamed(context, '/chat');
+                      }
+                      else{
+                        ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Verify Your Email',
+          message: 'you need to verify your email before using chatbot functionalities',
+          messageFontSize: 12,
+          contentType: ContentType.failure,
+        ),
+      ));
+                      }
                     },
                   ),
                   Padding(
@@ -173,7 +196,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       chatType: ChatType.voice,
                       icon: Icons.mic,
                       onpressed: () {
+                        if(AuthService.isUserVerified()){
                         Navigator.pushNamed(context, '/voice');
+                        }
+                        else{
+                          ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Verify Your Email',
+          message: 'you need to verify your email before using chatbot functionalities',
+          messageFontSize: 12,
+          contentType: ContentType.failure,
+        ),
+      ));
+                        }
                       },
                     ),
                   ),
@@ -209,15 +249,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       question:
                           'What is the difference between Software Engineering and Information Systems?',
                       answer:
-                          'adwadawdapwofjapwojfapowjfpaowjfpoawjfpoajwpofjapwojfpaowjfpoawj',
+                          'Software engineering focuses on designing, developing, and maintaining software systems using engineering principles. Information systems emphasize the integration of technology and business processes to manage and analyze data for decision-making and operations.',
                     ),
                     CustomStack(
-                      question: 'What is the northhampton dual degree program?',
-                      answer: 'adwadawd',
+                      question: 'How many semesters in Computer Science?',
+                      answer: 'There are 8 semesters in computer science ',
                     ),
                     CustomStack(
                       question: 'What is GPA and how is it calculated?',
-                      answer: 'adwadawd',
+                      answer: 'Colleges calculate GPA by assigning each grade a numerical value, multiplying this by the course\'s credit hours, summing these values, and then dividing by the total credit hours taken. This results in an average score that reflects a student\'s academic performance.',
                     ),
                   ],
                 ),
@@ -246,19 +286,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     icon: Icons.event_note,
                     backgroundColor: klightPurple,
                     iconColor: Colors.deepPurple.shade400,
+                    onpressed: () {
+                      Navigator.push(
+                  context,
+                  PageTransition(
+                    child: Homepage(),
+                    type: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 500),
+                    alignment: Alignment.center,
+                  ),
+                );
+                    },
                   ),
                   IconButtonCard(
                     text: 'Academic Advisor',
                     icon: Icons.school,
                     backgroundColor: klightyellow,
                     iconColor: Colors.amber.shade700,
+                    onpressed: (){
+                      Navigator.push(
+                  context,
+                  PageTransition(
+                    child: AdvisorScreen(),
+                    type: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 500),
+                    alignment: Alignment.center,
+                  ),
+                );
+                    },
                   ),
                   IconButtonCard(
-                    text: 'Chatbot',
-                    icon: Icons.smart_toy,
-                    backgroundColor: klightGreen,
-                    iconColor: Colors.lime.shade700,
+                      text: 'Grades',
+                      icon: Icons.text_increase,
+                      backgroundColor: klightGreen,
+                      iconColor: Colors.lime.shade700,
+                      onpressed: () {
+                        Navigator.push(
+                  context,
+                  PageTransition(
+                    child: GradesScreen(),
+                    type: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 500),
+                    alignment: Alignment.center,
                   ),
+                );
+                      }),
                 ],
               ),
             ),
@@ -289,12 +361,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     HistoryCard(
-                        question: 'How to extract an official execuse?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
+                      question: 'What is this app for?',
+                      answer:
+                          '',
+                    ),
                     //HistoryCard(question: 'When is my next Lecture?'),
-                    HistoryCard(question: 'When is my next Lecture?', answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
                     HistoryCard(
-                        question:
-                            'What is the minimum gpa requirment to graduate?',answer: 'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',),
+                      question: 'When is my next Lecture?',
+                      answer:
+                          'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',
+                    ),
+                    HistoryCard(
+                      question:
+                          'What is the minimum gpa requirment to graduate?',
+                      answer:
+                          'gawqeigoawoieghawoihgoaiwehgoawihegaoiwehgoawihegoawiheg',
+                    ),
                   ],
                 ),
               ),

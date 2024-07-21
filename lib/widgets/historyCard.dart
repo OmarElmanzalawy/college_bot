@@ -17,7 +17,7 @@ class HistoryCard extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: ExpansionTile(
-          title: Text('When is my next Lecture?'),
+          title: Text(question),
           backgroundColor: backgroundColor ?? Colors.transparent,
           children: [
             Padding(

@@ -10,6 +10,10 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Needed to Convert Speech to Text</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Needed to Capture Audio</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
