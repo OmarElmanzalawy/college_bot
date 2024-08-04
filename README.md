@@ -3,7 +3,66 @@
  ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34) <br> ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) <br><br>
 CollegeBot is an AI-powered mobile application designed for Arab Academy for Science and Technology university students to guide them throughout their academic journey. It provides instant answers to questions via text or voice, helping students with coursework, assignments, university-related inquiries, and other general inquiries. The app is specifically tailored to address queries related to the Arab Academy of Marine and Transport University.
 
-<!---## Preview-->
+## Preview
+<!--Another way to add images next to each other
+<p float="left">
+  <img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/academic%20advisor.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/academic%20advisor.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/academic%20advisor.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+</p> -->
+
+<table>
+  <tr>
+    <td>Splash Screen</td>
+     <td>Dashboard Screen</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/splash_screen.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+</td>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/dashboard.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/></td>
+  </tr>
+ </table>
+&nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+  <table>
+  <tr>
+    <td>Academic Advisor</td>
+     <td>Profile</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/academic%20advisor.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+</td>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/profile.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/></td>
+  </tr>
+ </table>
+ 
+&nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;
+
+ 
+ <table>
+  <tr>
+    <td>Voice Screen</td>
+     <td>Course Registration Screen</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/voice.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
+</td>
+    <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/registration.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/></td>
+  </tr>
+ </table>
+
+
 
 
 
