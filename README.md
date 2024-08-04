@@ -18,7 +18,7 @@ CollegeBot is an AI-powered mobile application designed for Arab Academy for Sci
 <table>
   <tr>
     <td>Splash Screen</td>
-     <td>Dashboard Screen</td>
+     <td>Home Screen</td>
   </tr>
   <tr>
     <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/splash_screen.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
@@ -34,8 +34,8 @@ CollegeBot is an AI-powered mobile application designed for Arab Academy for Sci
 
   <table>
   <tr>
-    <td>Academic Advisor</td>
-     <td>Profile</td>
+    <td>Academic Advisor Screen</td>
+     <td>Profile Screen</td>
   </tr>
   <tr>
     <td><img src="https://github.com/OmarElmanzalawy/preview_videos/blob/24681a6db93216d4ad6e945f174b5495a102f19a/CollegeBot/academic%20advisor.gif" alt="Databay showcase gif" title="Databay showcase gif" width="250"/>
